@@ -1,6 +1,7 @@
 ﻿using HerederosDelReyBackend.DTOs;
 using HerederosDelReyBackend.Interfaces;
 using HerederosDelReyBackend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,7 @@ namespace HerederosDelReyBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _usuarioService;
@@ -16,7 +18,7 @@ namespace HerederosDelReyBackend.Controllers
         {
             _usuarioService = usuarioService;
         }
-
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -28,7 +30,6 @@ namespace HerederosDelReyBackend.Controllers
         public async Task<IActionResult> GetById(int id)
         {
             var usuario = await _usuarioService.GetByIdAsync(id);
-
             if (usuario == null)
                 return NotFound(new { mensaje = "Usuario no encontrado" });
 
@@ -36,15 +37,14 @@ namespace HerederosDelReyBackend.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Create([FromBody] UsuarioCreateDto dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var creado = await _usuarioService.AddAsync(dto);
-
-            return CreatedAtAction(nameof(GetById), new { id = creado.Id },
-creado);
+            return CreatedAtAction(nameof(GetById), new { id = creado.Id }, creado);
         }
 
         [HttpPut("{id:int}")]
@@ -54,12 +54,8 @@ creado);
                 return BadRequest(ModelState);
 
             var actualizado = await _usuarioService.UpdateAsync(id, dto);
-
             if (!actualizado)
-                return BadRequest(new
-                {
-                    mensaje = "No se pudo actualizar el usuario" }); 
-
+                return BadRequest(new { mensaje = "No se pudo actualizar el usuario" });
 
             return NoContent();
         }
@@ -68,11 +64,11 @@ creado);
         public async Task<IActionResult> Delete(int id)
         {
             var eliminado = await _usuarioService.DeleteAsync(id);
-
             if (!eliminado)
                 return NotFound(new { mensaje = "Usuario no encontrado" });
 
             return NoContent();
         }
     }
+
 }

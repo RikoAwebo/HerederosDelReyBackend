@@ -1,0 +1,10 @@
+﻿using HerederosDelReyBackend.DTOs;
+using HerederosDelReyBackend.Models;
+
+namespace HerederosDelReyBackend.Interfaces
+{
+    public interface ITokenService
+    {
+        AuthResponseDto GenerateToken(Usuario usuario);
+    }
+}

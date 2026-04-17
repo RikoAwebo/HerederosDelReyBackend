@@ -9,11 +9,16 @@ namespace HerederosDelReyBackend.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public UsuarioService(IUnitOfWork unitOfWork, IMapper mapper)
+        public UsuarioService(
+            IUnitOfWork unitOfWork,
+            IMapper mapper,
+            IPasswordHasher passwordHasher)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _passwordHasher = passwordHasher;
         }
 
         public async Task<IEnumerable<UsuarioDto>> GetAllAsync()
@@ -25,7 +30,6 @@ namespace HerederosDelReyBackend.Services
         public async Task<UsuarioDto?> GetByIdAsync(int id)
         {
             var usuario = await _unitOfWork.Usuarios.GetByIdAsync(id);
-
             if (usuario == null)
                 return null;
 
@@ -34,7 +38,13 @@ namespace HerederosDelReyBackend.Services
 
         public async Task<UsuarioDto> AddAsync(UsuarioCreateDto dto)
         {
+            var existe = await _unitOfWork.Usuarios.GetByEmailAsync(dto.Email);
+            if (existe != null)
+                throw new Exception("Ya existe un usuario con ese email.");
+
             var usuario = _mapper.Map<Usuario>(dto);
+
+            usuario.Clave = _passwordHasher.HashPassword(dto.Clave);
 
             await _unitOfWork.Usuarios.AddAsync(usuario);
             await _unitOfWork.SaveChangesAsync();
@@ -48,32 +58,33 @@ namespace HerederosDelReyBackend.Services
                 return false;
 
             var usuario = await _unitOfWork.Usuarios.GetByIdAsync(id);
-
             if (usuario == null)
                 return false;
 
             usuario.NombreUsuario = dto.NombreUsuario;
             usuario.Email = dto.Email;
-            usuario.Clave = dto.Clave;
             usuario.Rol = dto.Rol;
+
+            if (!string.IsNullOrWhiteSpace(dto.Clave))
+            {
+                usuario.Clave = _passwordHasher.HashPassword(dto.Clave);
+            }
 
             _unitOfWork.Usuarios.Update(usuario);
             await _unitOfWork.SaveChangesAsync();
-
             return true;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
             var usuario = await _unitOfWork.Usuarios.GetByIdAsync(id);
-
             if (usuario == null)
                 return false;
 
             await _unitOfWork.Usuarios.DeleteAsync(id);
             await _unitOfWork.SaveChangesAsync();
-
             return true;
         }
     }
+
 }
