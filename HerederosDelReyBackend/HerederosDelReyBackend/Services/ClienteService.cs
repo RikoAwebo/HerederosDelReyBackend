@@ -5,59 +5,69 @@ using HerederosDelReyBackend.Models;
 
 public class ClienteService : IClienteService
 {
-    private readonly IGenericRepository<Cliente> _repo;
     private readonly IMapper _mapper;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public ClienteService(IGenericRepository<Cliente> repo, IMapper mapper)
+    public ClienteService(IUnitOfWork unitOfWork, IMapper mapper)
     {
-        _repo = repo;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<ClienteDto>> GetAllAsync()
-    {
-        var clientes = await _repo.GetAllAsync();
-        return _mapper.Map<IEnumerable<ClienteDto>>(clientes);
-    }
-
-    public async Task<ClienteDto?> GetByIdAsync(int id)
-    {
-        var cliente = await _repo.GetByIdAsync(id);
-        return cliente == null ? null : _mapper.Map<ClienteDto>(cliente);
-    }
 
     public async Task<ClienteDto> AddAsync(ClienteCreateDto dto)
     {
-        var cliente = _mapper.Map<Cliente>(dto);
+        var Objeto = _mapper.Map<Cliente>(dto);
 
-        await _repo.AddAsync(cliente);
-
-        return _mapper.Map<ClienteDto>(cliente);
-    }
-
-    public async Task<bool> UpdateAsync(int id, ClienteUpdateDto dto)
-    {
-        var cliente = await _repo.GetByIdAsync(id);
-
-        if (cliente == null)
-            return false;
-
-        _mapper.Map(dto, cliente);
-
-        _repo.Update(cliente);
-
-        return true;
+        await _unitOfWork.Clientes.AddAsync(Objeto);
+        await _unitOfWork.SaveChangesAsync();
+        return _mapper.Map<ClienteDto>(Objeto);
     }
 
     public async Task<bool> DeleteAsync(int id)
     {
-        var cliente = await _repo.GetByIdAsync(id);
 
-        if (cliente == null)
+        var objeto = await _unitOfWork.Clientes.GetByIdAsync(id);
+        if (objeto == null)
             return false;
 
-        await _repo.DeleteAsync(id);
+        await _unitOfWork.Clientes.DeleteAsync(id);
+        await _unitOfWork.SaveChangesAsync();
+        return true;
+    }
 
+    public async Task<IEnumerable<ClienteDto>> GetAllAsync()
+    {
+        var lista = await _unitOfWork.Clientes.GetAllAsync();
+        return _mapper.Map<IEnumerable<ClienteDto>>(lista);
+    }
+
+    public async Task<ClienteDto?> GetByIdAsync(int id)
+    {
+        var objeto = await _unitOfWork.Clientes.GetByIdAsync(id);
+        if (objeto == null)
+            return null;
+
+        return _mapper.Map<ClienteDto>(objeto);
+    }
+
+    public async Task<bool> UpdateAsync(int id, ClienteUpdateDto dto)
+    {
+        if (id == null)
+            return false;
+
+        var Cliente = _unitOfWork.Clientes.GetByIdAsync(id).Result;
+        if (Cliente == null)
+            return false;
+
+        Cliente.Nombre = dto.Nombre;
+        Cliente.Telefono = dto.Telefono;
+        Cliente.Email = dto.Email;
+        Cliente.Direccion = dto.Direccion;
+
+
+        _unitOfWork.Clientes.Update(Cliente);
+        await _unitOfWork.SaveChangesAsync();
         return true;
     }
 }

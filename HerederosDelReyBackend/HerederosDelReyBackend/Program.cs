@@ -73,6 +73,10 @@ builder.Services.AddScoped<IPasswordHasher, PasswordHasherService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
+
+
 // =========================
 // AutoMapper v16
 // =========================
