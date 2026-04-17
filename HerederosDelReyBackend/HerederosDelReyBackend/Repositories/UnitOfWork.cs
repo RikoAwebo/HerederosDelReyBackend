@@ -9,6 +9,7 @@ namespace HerederosDelReyBackend.Repositories
         private readonly HerederosDelReyContext _context;
         private IUsuarioRepository? _usuarioRepository;
         private IClienteRepository? _clienteRepository;
+        private ICategoriaRepository? _categoriaRepository;
 
         public UnitOfWork(HerederosDelReyContext context)
         {
@@ -18,6 +19,10 @@ namespace HerederosDelReyBackend.Repositories
            => _usuarioRepository ??= new UsuarioRepository(_context);
         public IClienteRepository Clientes
            => _clienteRepository ??= new ClienteRepository(_context);
+
+        public ICategoriaRepository Categorias
+            => _categoriaRepository ??= new CategoriaRepository(_context);
+
 
         public async Task<int> SaveChangesAsync()
         {
