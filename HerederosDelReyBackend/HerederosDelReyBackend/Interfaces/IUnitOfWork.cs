@@ -8,6 +8,10 @@
         ICategoriaRepository Categorias { get; }
         IProveedorRepository Proveedores { get; }
         ICompraRepository Compra { get; }
+        IDetalleCompraRepository DetalleCompras { get; }
+        ICajaRepository Caja { get; }
+
+        IVentaRepository Ventas { get; }
         Task<int> SaveChangesAsync();
     }
 }

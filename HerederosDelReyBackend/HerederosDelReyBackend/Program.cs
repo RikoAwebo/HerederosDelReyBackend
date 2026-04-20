@@ -85,6 +85,16 @@ builder.Services.AddScoped<IProveedorService, ProveedorService>();
 builder.Services.AddScoped<ICompraRepository, CompraRepository>();
 builder.Services.AddScoped<ICompraService, CompraService>();
 
+builder.Services.AddScoped<IDetalleCompraRepository, DetalleCompraRepository>();
+builder.Services.AddScoped<IDetalleCompraService, DetalleCompraService>();
+
+builder.Services.AddScoped<ICajaRepository, CajaRepository>();
+builder.Services.AddScoped<ICajaService, CajaService>();
+
+builder.Services.AddScoped<IVentaRepository, VentaRepository>();
+builder.Services.AddScoped<IVentaService, VentaService>();
+
+
 
 
 
