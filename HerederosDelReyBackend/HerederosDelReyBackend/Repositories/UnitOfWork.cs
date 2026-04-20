@@ -10,6 +10,7 @@ namespace HerederosDelReyBackend.Repositories
         private IUsuarioRepository? _usuarioRepository;
         private IClienteRepository? _clienteRepository;
         private ICategoriaRepository? _categoriaRepository;
+        private IProveedorRepository? _proveedorRepository;
 
         public UnitOfWork(HerederosDelReyContext context)
         {
@@ -22,6 +23,9 @@ namespace HerederosDelReyBackend.Repositories
 
         public ICategoriaRepository Categorias
             => _categoriaRepository ??= new CategoriaRepository(_context);
+
+        public IProveedorRepository Proveedores
+            => _proveedorRepository ??= new ProveedorRepository(_context);
 
 
         public async Task<int> SaveChangesAsync()
