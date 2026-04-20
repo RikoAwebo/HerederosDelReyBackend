@@ -7,6 +7,7 @@
 
         ICategoriaRepository Categorias { get; }
         IProveedorRepository Proveedores { get; }
+        ICompraRepository Compra { get; }
         Task<int> SaveChangesAsync();
     }
 }

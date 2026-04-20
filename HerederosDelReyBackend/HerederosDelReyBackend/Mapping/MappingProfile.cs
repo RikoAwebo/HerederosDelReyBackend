@@ -19,6 +19,14 @@ namespace HerederosDelReyBackend.Mapping
             CreateMap<Categoria, CategoriaDto>();
             CreateMap<CategoriaCreateDto,  Categoria>();
             CreateMap<CategoriaUpdateDto, Categoria>();
+
+            CreateMap<Proveedore, ProveedoresDto>();
+            CreateMap<ProveedoresCreateDto, Proveedore>();
+            CreateMap<ProveedoresUptadeDto, Proveedore>();
+
+            CreateMap<Compra, CompraDto>();
+            CreateMap<CompraCreateDto, Compra>();
+            CreateMap<CompraUpdateDto, Compra>();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace HerederosDelReyBackend.Repositories
         private IClienteRepository? _clienteRepository;
         private ICategoriaRepository? _categoriaRepository;
         private IProveedorRepository? _proveedorRepository;
+        private ICompraRepository? _compraRepository;
 
         public UnitOfWork(HerederosDelReyContext context)
         {
@@ -26,6 +27,9 @@ namespace HerederosDelReyBackend.Repositories
 
         public IProveedorRepository Proveedores
             => _proveedorRepository ??= new ProveedorRepository(_context);
+
+        public ICompraRepository Compras
+            => _compraRepository ??= new CompraRepository(_context);
 
 
         public async Task<int> SaveChangesAsync()
