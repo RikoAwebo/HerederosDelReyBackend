@@ -15,6 +15,10 @@ namespace HerederosDelReyBackend.Mapping
             CreateMap<Cliente, ClienteDto>();
             CreateMap<ClienteCreateDto, Cliente>();
             CreateMap<ClienteUpdateDto, Cliente>();
+
+            CreateMap<Categoria, CategoriaDto>();
+            CreateMap<CategoriaCreateDto,  Categoria>();
+            CreateMap<CategoriaUpdateDto, Categoria>();
         }
     }
 }

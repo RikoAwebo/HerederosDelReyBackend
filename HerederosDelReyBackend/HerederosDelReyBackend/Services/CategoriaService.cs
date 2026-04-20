@@ -1,33 +1,71 @@
-﻿using HerederosDelReyBackend.DTOs;
+﻿using AutoMapper;
+using HerederosDelReyBackend.DTOs;
 using HerederosDelReyBackend.Interfaces;
+using HerederosDelReyBackend.Models;
 
 namespace HerederosDelReyBackend.Services
 {
     public class CategoriaService : ICategoriaService
     {
-        public Task<CategoriaDto> AddAsync(CategoriaCreateDto dto)
+        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+
+        public CategoriaService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
+        public async Task<CategoriaDto> AddAsync(CategoriaCreateDto dto)
+        {
+            var Objeto = _mapper.Map<Categoria>(dto);
+
+            await _unitOfWork.Categorias.AddAsync(Objeto);
+            await _unitOfWork.SaveChangesAsync();
+            return _mapper.Map<CategoriaDto>(Objeto);
         }
 
-        public Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var objeto = await _unitOfWork.Categorias.GetByIdAsync(id);
+            if (objeto == null)
+                return false;
+
+            await _unitOfWork.Categorias.DeleteAsync(id);
+            await _unitOfWork.SaveChangesAsync();
+            return true;    
         }
 
-        public Task<IEnumerable<CategoriaDto>> GetAllAsync()
+        public async Task<IEnumerable<CategoriaDto>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var lista = await _unitOfWork.Categorias.GetAllAsync();
+            return _mapper.Map<IEnumerable<CategoriaDto>>(lista);
         }
 
-        public Task<CategoriaDto?> GetByIdAsync(int id)
+        public async Task<CategoriaDto?> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var objeto = await _unitOfWork.Categorias.GetByIdAsync(id);
+            if (objeto == null)
+                return null;
+
+            return _mapper.Map<CategoriaDto>(objeto);
         }
 
-        public Task<bool> UpdateAsync(int id, CategoriaUpdateDto dto)
+        public async Task<bool> UpdateAsync(int id, CategoriaUpdateDto dto)
         {
-            throw new NotImplementedException();
+            if (id == null)
+                return false;
+
+            var Objeto = _unitOfWork.Categorias.GetByIdAsync(id).Result;
+            if (Objeto == null)
+                return false;
+
+            Objeto.Nombre = dto.Nombre;
+            Objeto.Descripcion = dto.Descripcion;
+       
+
+            _unitOfWork.Categorias.Update(Objeto);
+            await _unitOfWork.SaveChangesAsync();
+            return true;
         }
     }
 }
