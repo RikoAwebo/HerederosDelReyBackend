@@ -1,0 +1,79 @@
+﻿using AutoMapper;
+using HerederosDelReyBackend.DTOs;
+using HerederosDelReyBackend.Interfaces;
+using HerederosDelReyBackend.Models;
+
+namespace HerederosDelReyBackend.Services
+{
+    public class ProductoService : IProductoService
+    {
+        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
+
+
+        public ProductoService(IUnitOfWork unitOfWork, IMapper mapper)
+        {
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
+
+        public async Task<ProductoDto> AddAsync(ProductoCreateDto dto)
+        {
+            var Objeto = _mapper.Map<Producto>(dto);
+
+            await _unitOfWork.Productos.AddAsync(Objeto);
+            await _unitOfWork.SaveChangesAsync();
+            return _mapper.Map<ProductoDto>(Objeto);
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var objeto = await _unitOfWork.Productos.GetByIdAsync(id);
+            if (objeto == null)
+                return false;
+
+            await _unitOfWork.Productos.DeleteAsync(id);
+            await _unitOfWork.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<IEnumerable<ProductoDto>> GetAllAsync()
+        {
+            var lista = await _unitOfWork.Productos.GetAllAsync();
+            return _mapper.Map<IEnumerable<ProductoDto>>(lista);
+        }
+
+        public async Task<ProductoDto?> GetByIdAsync(int id)
+        {
+            var objeto = await _unitOfWork.Productos.GetByIdAsync(id);
+            if (objeto == null)
+                return null;
+
+            return _mapper.Map<ProductoDto>(objeto);
+        }
+
+        public async Task<bool> UpdateAsync(int id, ProductoUpdateDto dto)
+        {
+            if (id == null)
+                return false;
+
+            var Objeto = _unitOfWork.Productos.GetByIdAsync(id).Result;
+            if (Objeto == null)
+                return false;
+
+            Objeto.Nombre = dto.Nombre;
+            Objeto.Stock = dto.Stock;
+            Objeto.StockMinimo = dto.StockMinimo;
+            Objeto.PrecioCompra = dto.PrecioCompra;
+            Objeto.PrecioVenta = dto.PrecioVenta;
+            Objeto.FechaCaducidad = dto.FechaCaducidad;
+
+
+            _unitOfWork.Productos.Update(Objeto);
+            await _unitOfWork.SaveChangesAsync();
+            return true;
+        }
+
+
+    }
+}

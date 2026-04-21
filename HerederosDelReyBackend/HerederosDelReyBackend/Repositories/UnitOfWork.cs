@@ -15,6 +15,10 @@ namespace HerederosDelReyBackend.Repositories
         private IDetalleCompraRepository? _detallecompraRepository;
         private ICajaRepository? _cajaRepository;
         private IVentaRepository? _ventaRepository;
+        private IMarcaRepository? _marcaRepository;
+        private IGastosRepository? _gastoRepository;
+        private IProductoRepository? _productoRepository;
+        private IDetalleVentaRepository? _detalleVentaRepository;
 
         public UnitOfWork(HerederosDelReyContext context)
         {
@@ -43,7 +47,17 @@ namespace HerederosDelReyBackend.Repositories
         public IVentaRepository Ventas
             => _ventaRepository ??= new VentaRepository(_context);
 
+        public IMarcaRepository Marca
+            => _marcaRepository ??= new MarcaRepository(_context);
 
+        public IGastosRepository Gastos
+            => _gastoRepository ??= new GastosRepository(_context);
+
+        public IProductoRepository Productos
+            => _productoRepository ??= new ProductoRepository(_context);
+            
+        public IDetalleVentaRepository DetalleVentas
+            => _detalleVentaRepository ??= new DetalleVentaRepository(_context);
 
         public async Task<int> SaveChangesAsync()
         {

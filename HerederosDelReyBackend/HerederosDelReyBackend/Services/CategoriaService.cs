@@ -10,6 +10,13 @@ namespace HerederosDelReyBackend.Services
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
 
+
+        public async Task<IEnumerable<CategoriaDto>> GetAllAsync()
+        {
+            var lista = await _unitOfWork.Categorias.GetAllAsync();
+            return _mapper.Map<IEnumerable<CategoriaDto>>(lista);
+        }
+
         public CategoriaService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
@@ -35,11 +42,7 @@ namespace HerederosDelReyBackend.Services
             return true;    
         }
 
-        public async Task<IEnumerable<CategoriaDto>> GetAllAsync()
-        {
-            var lista = await _unitOfWork.Categorias.GetAllAsync();
-            return _mapper.Map<IEnumerable<CategoriaDto>>(lista);
-        }
+        
 
         public async Task<CategoriaDto?> GetByIdAsync(int id)
         {

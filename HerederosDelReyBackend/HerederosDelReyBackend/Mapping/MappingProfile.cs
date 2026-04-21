@@ -39,6 +39,22 @@ namespace HerederosDelReyBackend.Mapping
             CreateMap<Venta, VentaDto>();
             CreateMap<VentaCreateDto, Venta>();
             CreateMap<VentaUpdateDto, Venta>();
+
+            CreateMap<Marca, MarcaDto>();
+            CreateMap<MarcaCreateDto, Marca>();
+            CreateMap<MarcaUpdateDto, Marca>();
+
+            CreateMap<Gasto, GastosDto>();
+            CreateMap<GastosCreateDto, Gasto>();
+            CreateMap<GastosUpdateDto, Gasto>();
+
+            CreateMap<Producto, ProductoDto>();
+            CreateMap<ProductoCreateDto, Producto>();
+            CreateMap<ProductoUpdateDto, Producto>();
+
+            CreateMap<DetalleCompra, DetalleCompraDto>();
+            CreateMap<DetalleCompraCreateDto, DetalleCompra>();
+            CreateMap<DetalleCompraUpdateDto, DetalleCompra>();
         }
     }
 }
