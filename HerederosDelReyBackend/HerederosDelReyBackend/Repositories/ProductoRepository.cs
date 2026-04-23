@@ -10,6 +10,24 @@ namespace HerederosDelReyBackend.Repositories
         public ProductoRepository(HerederosDelReyContext context) : base(context)
         {
         }
+        public async Task<PagedList<Producto>> GetAllAsync(PostQueryFilter filter)
+        {
+            var query = GetAllAsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(filter.Buscar))
+            {
+                var buscar = filter.Buscar.ToLower();
+
+                query = query.Where(x =>
+                    x.Categoria.ToString().ToLower().Contains(buscar) ||
+                    x.StockMinimo.ToString().ToLower().Contains(buscar) ||
+                    x.Nombre.ToString().ToLower().Contains(buscar));
+
+
+            }
+
+            return await PagedList<Producto>.CreateAsync(query, filter.PageNumber, filter.PageSize);
+        }
 
     }
 }
