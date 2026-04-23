@@ -20,8 +20,9 @@ namespace HerederosDelReyBackend.Repositories
             if (!string.IsNullOrWhiteSpace(filter.Buscar))
             {
                 var buscar = filter.Buscar.ToLower();
+                query = query.Where(x =>
+                    x.Estado.ToLower().Contains(buscar));
 
-             
             }
 
             return await PagedList<Caja>.CreateAsync(query, filter.PageNumber, filter.PageSize);

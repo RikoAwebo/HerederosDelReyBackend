@@ -1,8 +1,10 @@
-﻿using HerederosDelReyBackend.Models;
+﻿using HerederosDelReyBackend.DTOs;
+using HerederosDelReyBackend.Models;
 
 namespace HerederosDelReyBackend.Interfaces
 {
     public interface IProductoRepository : IGenericRepository<Producto>
     {
+                        Task<PagedList<Producto>> GetAllAsync(PostQueryFilter filter);
     }
 }
