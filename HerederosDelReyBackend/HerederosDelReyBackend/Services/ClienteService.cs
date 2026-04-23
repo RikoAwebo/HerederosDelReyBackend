@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HerederosDelReyBackend.Data;
 using HerederosDelReyBackend.DTOs;
 using HerederosDelReyBackend.Interfaces;
 using HerederosDelReyBackend.Models;
@@ -69,5 +70,13 @@ public class ClienteService : IClienteService
         _unitOfWork.Clientes.Update(Cliente);
         await _unitOfWork.SaveChangesAsync();
         return true;
+    }
+
+    public async Task<ApiResponse<IEnumerable<ClienteDto>>> GetAllAsync(PostQueryFilter filter)
+    {
+        var objeto = await _unitOfWork.Clientes.GetAllAsync(filter);
+        var objetoDto = _mapper.Map<IEnumerable<ClienteDto>>(objeto);
+
+        return new ApiResponse<IEnumerable<ClienteDto>>(objetoDto, objeto.MetaData);
     }
 }

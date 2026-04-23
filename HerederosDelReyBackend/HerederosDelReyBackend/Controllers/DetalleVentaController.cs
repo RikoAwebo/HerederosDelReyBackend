@@ -67,5 +67,12 @@ namespace HerederosDelReyBackend.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("Paginacion")]
+        public async Task<IActionResult> GetAllPag([FromQuery] PostQueryFilter filter)
+        {
+            var response = await _service.GetAllAsync(filter);
+            return Ok(response);
+        }
     }
 }
