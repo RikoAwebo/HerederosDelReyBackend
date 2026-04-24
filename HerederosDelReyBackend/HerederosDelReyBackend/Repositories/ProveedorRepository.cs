@@ -5,13 +5,13 @@ using HerederosDelReyBackend.Models;
 
 namespace HerederosDelReyBackend.Repositories
 {
-    public class ProveedorRepository : GenericRepository<Proveedore>,
+    public class ProveedorRepository : GenericRepository<Proveedor>,
         IProveedorRepository
     {
         public ProveedorRepository(HerederosDelReyContext context) : base(context)
         {
         }
-        public async Task<PagedList<Proveedore>> GetAllAsync(PostQueryFilter filter)
+        public async Task<PagedList<Proveedor>> GetAllAsync(PostQueryFilter filter)
         {
             var query = GetAllAsQueryable();
 
@@ -26,7 +26,7 @@ namespace HerederosDelReyBackend.Repositories
 
             }
 
-            return await PagedList<Proveedore>.CreateAsync(query, filter.PageNumber, filter.PageSize);
+            return await PagedList<Proveedor>.CreateAsync(query, filter.PageNumber, filter.PageSize);
         }
     }
 }

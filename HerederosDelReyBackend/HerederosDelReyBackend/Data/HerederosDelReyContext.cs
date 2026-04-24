@@ -34,7 +34,7 @@ public partial class HerederosDelReyContext : DbContext
 
     public virtual DbSet<Producto> Productos { get; set; }
 
-    public virtual DbSet<Proveedore> Proveedores { get; set; }
+    public virtual DbSet<Proveedor> Proveedores { get; set; }
 
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
@@ -245,7 +245,7 @@ public partial class HerederosDelReyContext : DbContext
                 .HasConstraintName("FK__Productos__Marca__4F7CD00D");
         });
 
-        modelBuilder.Entity<Proveedore>(entity =>
+        modelBuilder.Entity<Proveedor>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Proveedo__3214EC07A1D3DEF2");
 

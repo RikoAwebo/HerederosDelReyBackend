@@ -1,4 +1,5 @@
-﻿using HerederosDelReyBackend.DTOs;
+﻿using HerederosDelReyBackend.Data;
+using HerederosDelReyBackend.DTOs;
 using HerederosDelReyBackend.Models;
 
 namespace HerederosDelReyBackend.Interfaces

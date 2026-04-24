@@ -20,7 +20,7 @@ namespace HerederosDelReyBackend.Services
 
         public async Task<ProveedoresDto> AddAsync(ProveedoresCreateDto dto)
         {
-            var Objeto = _mapper.Map<Proveedore>(dto);
+            var Objeto = _mapper.Map<Proveedor>(dto);
 
             await _unitOfWork.Proveedores.AddAsync(Objeto);
             await _unitOfWork.SaveChangesAsync();
@@ -74,7 +74,7 @@ namespace HerederosDelReyBackend.Services
         }
         public async Task<ApiResponse<IEnumerable<ProveedoresDto>>> GetAllAsync(PostQueryFilter filter)
         {
-            var objeto = await _unitOfWork.Clientes.GetAllAsync(filter);
+            var objeto = await _unitOfWork.Proveedores.GetAllAsync(filter);
             var objetoDto = _mapper.Map<IEnumerable<ProveedoresDto>>(objeto);
 
             return new ApiResponse<IEnumerable<ProveedoresDto>>(objetoDto, objeto.MetaData);

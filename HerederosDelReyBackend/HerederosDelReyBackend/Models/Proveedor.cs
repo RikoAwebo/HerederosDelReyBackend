@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace HerederosDelReyBackend.Models;
 
-public partial class Proveedore : BaseEntity
+public partial class Proveedor : BaseEntity
 {
 
     public string? Nombre { get; set; }
