@@ -17,7 +17,7 @@ public partial class Compra : BaseEntity
 
     public virtual ICollection<DetalleCompra> DetalleCompras { get; set; } = new List<DetalleCompra>();
 
-    public virtual Proveedore? Proveedor { get; set; }
+    public virtual Proveedor? Proveedor { get; set; }
 
     public virtual Usuario? Usuario { get; set; }
 }

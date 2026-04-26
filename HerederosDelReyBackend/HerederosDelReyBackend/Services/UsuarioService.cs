@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HerederosDelReyBackend.Data;
 using HerederosDelReyBackend.DTOs;
 using HerederosDelReyBackend.Interfaces;
 using HerederosDelReyBackend.Models;
@@ -85,6 +86,15 @@ namespace HerederosDelReyBackend.Services
             await _unitOfWork.SaveChangesAsync();
             return true;
         }
+
+        public async Task<ApiResponse<IEnumerable<UsuarioDto>>> GetAllAsync(PostQueryFilter filter)
+        {
+            var usuarios = await _unitOfWork.Usuarios.GetAllAsync(filter);
+            var usuariosDto = _mapper.Map<IEnumerable<UsuarioDto>>(usuarios);
+
+            return new ApiResponse<IEnumerable<UsuarioDto>>(usuariosDto, usuarios.MetaData);
+        }
+
     }
 
 }

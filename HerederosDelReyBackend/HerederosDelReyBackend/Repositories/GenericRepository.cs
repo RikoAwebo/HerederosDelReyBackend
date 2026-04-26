@@ -57,5 +57,14 @@ false);
             }
 
         }
+        public IQueryable<T> GetAllAsQueryable()
+        {
+            return _entities
+                .AsNoTracking()
+                .Where(x => x.Borrado == false)
+                .OrderByDescending(x => x.Id)
+                .AsQueryable();
+        }
+
     }
 }

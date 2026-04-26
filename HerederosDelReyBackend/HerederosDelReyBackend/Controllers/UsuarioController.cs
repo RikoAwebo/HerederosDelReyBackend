@@ -9,7 +9,7 @@ namespace HerederosDelReyBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    //[Authorize]
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _usuarioService;
@@ -18,7 +18,7 @@ namespace HerederosDelReyBackend.Controllers
         {
             _usuarioService = usuarioService;
         }
-        [Authorize]
+       // [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -37,7 +37,7 @@ namespace HerederosDelReyBackend.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
+      //  [AllowAnonymous]
         public async Task<IActionResult> Create([FromBody] UsuarioCreateDto dto)
         {
             if (!ModelState.IsValid)
@@ -69,6 +69,14 @@ namespace HerederosDelReyBackend.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("pagination")]
+        public async Task<IActionResult> GetAllPagination([FromQuery] PostQueryFilter filter)
+        {
+            var response = await _usuarioService.GetAllAsync(filter);
+            return Ok(response);
+        }
+
     }
 
 }

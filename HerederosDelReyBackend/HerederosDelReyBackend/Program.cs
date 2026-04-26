@@ -85,9 +85,26 @@ builder.Services.AddScoped<IProveedorService, ProveedorService>();
 builder.Services.AddScoped<ICompraRepository, CompraRepository>();
 builder.Services.AddScoped<ICompraService, CompraService>();
 
+builder.Services.AddScoped<IDetalleCompraRepository, DetalleCompraRepository>();
+builder.Services.AddScoped<IDetalleCompraService, DetalleCompraService>();
 
+builder.Services.AddScoped<ICajaRepository, CajaRepository>();
+builder.Services.AddScoped<ICajaService, CajaService>();
 
+builder.Services.AddScoped<IVentaRepository, VentaRepository>();
+builder.Services.AddScoped<IVentaService, VentaService>();
 
+builder.Services.AddScoped<IMarcaRepository, MarcaRepository>();
+builder.Services.AddScoped<IMarcaService, MarcaService>();
+
+builder.Services.AddScoped<IGastosRepository, GastosRepository>();
+builder.Services.AddScoped<IGastosService, GastosService>();
+
+builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
+builder.Services.AddScoped<IProductoService, ProductoService>();
+
+builder.Services.AddScoped<IDetalleVentaRepository, DetalleVentaRepository>();
+builder.Services.AddScoped<IDetalleVentaService, DetalleVentaService>();    
 
 // =========================
 // AutoMapper v16

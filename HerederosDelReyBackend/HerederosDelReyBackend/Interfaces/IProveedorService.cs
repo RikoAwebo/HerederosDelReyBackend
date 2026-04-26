@@ -1,4 +1,5 @@
-﻿using HerederosDelReyBackend.DTOs;
+﻿using HerederosDelReyBackend.Data;
+using HerederosDelReyBackend.DTOs;
 
 namespace HerederosDelReyBackend.Interfaces
 {
@@ -9,5 +10,6 @@ namespace HerederosDelReyBackend.Interfaces
         Task<ProveedoresDto> AddAsync(ProveedoresCreateDto dto);
         Task<bool> UpdateAsync(int id, ProveedoresUptadeDto dto);
         Task<bool> DeleteAsync(int id);
+        Task<ApiResponse<IEnumerable<ProveedoresDto>>> GetAllAsync(PostQueryFilter filter);
     }
 }

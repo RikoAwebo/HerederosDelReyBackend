@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HerederosDelReyBackend.Data;
 using HerederosDelReyBackend.DTOs;
 using HerederosDelReyBackend.Interfaces;
 using HerederosDelReyBackend.Models;
@@ -9,6 +10,13 @@ namespace HerederosDelReyBackend.Services
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+
+
+        public async Task<IEnumerable<CategoriaDto>> GetAllAsync()
+        {
+            var lista = await _unitOfWork.Categorias.GetAllAsync();
+            return _mapper.Map<IEnumerable<CategoriaDto>>(lista);
+        }
 
         public CategoriaService(IUnitOfWork unitOfWork, IMapper mapper)
         {
@@ -35,11 +43,7 @@ namespace HerederosDelReyBackend.Services
             return true;    
         }
 
-        public async Task<IEnumerable<CategoriaDto>> GetAllAsync()
-        {
-            var lista = await _unitOfWork.Categorias.GetAllAsync();
-            return _mapper.Map<IEnumerable<CategoriaDto>>(lista);
-        }
+        
 
         public async Task<CategoriaDto?> GetByIdAsync(int id)
         {
@@ -66,6 +70,14 @@ namespace HerederosDelReyBackend.Services
             _unitOfWork.Categorias.Update(Objeto);
             await _unitOfWork.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<ApiResponse<IEnumerable<CategoriaDto>>> GetAllAsync(PostQueryFilter filter)
+        {
+            var categorias = await _unitOfWork.Categorias.GetAllAsync(filter);
+            var categoriasDto = _mapper.Map<IEnumerable<CategoriaDto>>(categorias);
+
+            return new ApiResponse<IEnumerable<CategoriaDto>>(categoriasDto, categorias.MetaData);
         }
     }
 }

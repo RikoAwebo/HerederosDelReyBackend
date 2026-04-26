@@ -20,13 +20,41 @@ namespace HerederosDelReyBackend.Mapping
             CreateMap<CategoriaCreateDto,  Categoria>();
             CreateMap<CategoriaUpdateDto, Categoria>();
 
-            CreateMap<Proveedore, ProveedoresDto>();
-            CreateMap<ProveedoresCreateDto, Proveedore>();
-            CreateMap<ProveedoresUptadeDto, Proveedore>();
+            CreateMap<Proveedor, ProveedoresDto>();
+            CreateMap<ProveedoresCreateDto, Proveedor>();
+            CreateMap<ProveedoresUptadeDto, Proveedor>();
 
             CreateMap<Compra, CompraDto>();
             CreateMap<CompraCreateDto, Compra>();
             CreateMap<CompraUpdateDto, Compra>();
+
+            CreateMap<DetalleCompra, DetalleCompraDto>();
+            CreateMap<DetalleCompraCreateDto, DetalleCompra>();
+            CreateMap<DetalleCompraUpdateDto, DetalleCompra>();
+
+            CreateMap<Caja, CajaDto>();
+            CreateMap<CajaCreateDto, Caja>();
+            CreateMap<CajaUpdateDto, Caja>();
+
+            CreateMap<Venta, VentaDto>();
+            CreateMap<VentaCreateDto, Venta>();
+            CreateMap<VentaUpdateDto, Venta>();
+
+            CreateMap<Marca, MarcaDto>();
+            CreateMap<MarcaCreateDto, Marca>();
+            CreateMap<MarcaUpdateDto, Marca>();
+
+            CreateMap<Gasto, GastosDto>();
+            CreateMap<GastosCreateDto, Gasto>();
+            CreateMap<GastosUpdateDto, Gasto>();
+
+            CreateMap<Producto, ProductoDto>();
+            CreateMap<ProductoCreateDto, Producto>();
+            CreateMap<ProductoUpdateDto, Producto>();
+
+            CreateMap<DetalleCompra, DetalleCompraDto>();
+            CreateMap<DetalleCompraCreateDto, DetalleCompra>();
+            CreateMap<DetalleCompraUpdateDto, DetalleCompra>();
         }
     }
 }
