@@ -18,5 +18,8 @@
         public int? CategoriaId { get; set; }
 
         public int? MarcaId { get; set; }
+
+        public string? NombreMarca { get; set; }
+        public string? NombreCategoria { get; set; }
     }
 }

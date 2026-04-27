@@ -2,6 +2,7 @@
 using HerederosDelReyBackend.DTOs;
 using HerederosDelReyBackend.Interfaces;
 using HerederosDelReyBackend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HerederosDelReyBackend.Repositories
 {
@@ -12,21 +13,28 @@ namespace HerederosDelReyBackend.Repositories
         }
         public async Task<PagedList<Producto>> GetAllAsync(PostQueryFilter filter)
         {
-            var query = GetAllAsQueryable();
+
+            var query = GetAllAsQueryable()
+            .Include(x => x.Marca)
+            .Include(x => x.Categoria)
+            .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filter.Buscar))
             {
-                var buscar = filter.Buscar.ToLower();
+                var buscar = filter.Buscar.Trim().ToLower();
 
                 query = query.Where(x =>
-                    x.Categoria.ToString().ToLower().Contains(buscar) ||
-                    x.StockMinimo.ToString().ToLower().Contains(buscar) ||
-                    x.Nombre.ToString().ToLower().Contains(buscar));
-
-
+                    x.Nombre.ToLower().Contains(buscar)
+                    || x.Marca.Nombre.ToLower().Contains(buscar)
+                    || x.Categoria.Nombre.ToLower().Contains(buscar)
+                );
             }
 
-            return await PagedList<Producto>.CreateAsync(query, filter.PageNumber, filter.PageSize);
+            return await PagedList<Producto>.CreateAsync(
+                query,
+                filter.PageNumber,
+                filter.PageSize
+            );
         }
 
     }

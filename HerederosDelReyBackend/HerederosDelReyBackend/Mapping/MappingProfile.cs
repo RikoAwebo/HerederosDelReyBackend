@@ -48,7 +48,12 @@ namespace HerederosDelReyBackend.Mapping
             CreateMap<GastosCreateDto, Gasto>();
             CreateMap<GastosUpdateDto, Gasto>();
 
-            CreateMap<Producto, ProductoDto>();
+            CreateMap<Producto, ProductoDto>()
+             .ForMember(dest => dest.NombreMarca,
+                 opt => opt.MapFrom(src => src.Marca != null ? src.Marca.Nombre : null))
+
+             .ForMember(dest => dest.NombreCategoria,
+                 opt => opt.MapFrom(src => src.Categoria != null ? src.Categoria.Nombre : null));
             CreateMap<ProductoCreateDto, Producto>();
             CreateMap<ProductoUpdateDto, Producto>();
 

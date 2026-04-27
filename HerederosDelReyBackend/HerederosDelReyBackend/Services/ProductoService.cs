@@ -76,7 +76,7 @@ namespace HerederosDelReyBackend.Services
         }
         public async Task<ApiResponse<IEnumerable<ProductoDto>>> GetAllAsync(PostQueryFilter filter)
         {
-            var objeto = await _unitOfWork.Clientes.GetAllAsync(filter);
+            var objeto = await _unitOfWork.Productos.GetAllAsync(filter);
             var objetoDto = _mapper.Map<IEnumerable<ProductoDto>>(objeto);
 
             return new ApiResponse<IEnumerable<ProductoDto>>(objetoDto, objeto.MetaData);
