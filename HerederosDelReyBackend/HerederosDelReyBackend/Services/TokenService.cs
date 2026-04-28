@@ -52,6 +52,7 @@ namespace HerederosDelReyBackend.Services
                 NombreUsuario = usuario.NombreUsuario,
                 Email = usuario.Email,
                 Rol = usuario.Rol,
+                Id = usuario.Id.ToString(),
                 Expiracion = expiration
             };
         }

@@ -24,7 +24,12 @@ namespace HerederosDelReyBackend.Mapping
             CreateMap<ProveedoresCreateDto, Proveedor>();
             CreateMap<ProveedoresUptadeDto, Proveedor>();
 
-            CreateMap<Compra, CompraDto>();
+            CreateMap<Compra, CompraDto>()
+                .ForMember(dest => dest.NombreProveedor,
+                 opt => opt.MapFrom(src => src.Proveedor != null ? src.Proveedor.Nombre : null))
+
+             .ForMember(dest => dest.NombreUsuario,
+                 opt => opt.MapFrom(src => src.Usuario != null ? src.Usuario.NombreUsuario : null));
             CreateMap<CompraCreateDto, Compra>();
             CreateMap<CompraUpdateDto, Compra>();
 
@@ -36,7 +41,12 @@ namespace HerederosDelReyBackend.Mapping
             CreateMap<CajaCreateDto, Caja>();
             CreateMap<CajaUpdateDto, Caja>();
 
-            CreateMap<Venta, VentaDto>();
+            CreateMap<Venta, VentaDto>()
+             .ForMember(dest => dest.ClienteNombre,
+                 opt => opt.MapFrom(src => src.Cliente != null ? src.Cliente.Nombre : null))
+
+             .ForMember(dest => dest.UsuarioNombre,
+                 opt => opt.MapFrom(src => src.Usuario != null ? src.Usuario.NombreUsuario : null));
             CreateMap<VentaCreateDto, Venta>();
             CreateMap<VentaUpdateDto, Venta>();
 

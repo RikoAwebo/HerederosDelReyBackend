@@ -15,5 +15,8 @@
         public int? ClienteId { get; set; }
 
         public int? UsuarioId { get; set; }
+
+        public string? ClienteNombre { get; set; }
+        public string? UsuarioNombre { get; set; }
     }
 }

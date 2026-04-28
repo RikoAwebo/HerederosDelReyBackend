@@ -2,6 +2,7 @@
 using HerederosDelReyBackend.DTOs;
 using HerederosDelReyBackend.Interfaces;
 using HerederosDelReyBackend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HerederosDelReyBackend.Repositories
 {
@@ -13,15 +14,15 @@ namespace HerederosDelReyBackend.Repositories
         }
         public async Task<PagedList<Venta>> GetAllAsync(PostQueryFilter filter)
         {
-            var query = GetAllAsQueryable();
+            var query = GetAllAsQueryable().Include(v => v.Cliente).Include(v => v.Usuario).AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filter.Buscar))
             {
                 var buscar = filter.Buscar.ToLower();
 
                 query = query.Where(x =>
-                    x.Cliente.ToString().ToLower().Contains(buscar) ||
-                    x.Fecha.ToString().ToLower().Contains(buscar));
+                    x.Cliente.Nombre.ToLower().Contains(buscar) ||
+                    x.Usuario.NombreUsuario.ToLower().Contains(buscar));
 
 
             }
