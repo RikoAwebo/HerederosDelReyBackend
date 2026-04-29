@@ -1,6 +1,7 @@
 ﻿using HerederosDelReyBackend.DTOs;
 using HerederosDelReyBackend.Interfaces;
 using HerederosDelReyBackend.Models;
+using HerederosDelReyBackend.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -75,5 +76,35 @@ namespace HerederosDelReyBackend.Controllers
             var response = await _service.GetAllAsync(filter);
             return Ok(response);
         }
+
+
+        [HttpPost]
+        [Route("venta-detalle")]
+        public async Task<IActionResult> VentaDetalle([FromBody] VentaDetalleDto dto)
+        {
+            if (dto == null)
+                return BadRequest("Datos inválidos");
+
+            try
+            {
+                var result = await _service.VentaDetalle(dto);
+
+                if (result)
+                    return Ok(new { message = "Venta registrada correctamente" });
+
+                return StatusCode(500, "No se pudo registrar la venta");
+            }
+            catch (Exception ex)
+            {
+                // En producción deberías loguear esto
+                return StatusCode(500, new
+                {
+                    message = "Error interno",
+                    error = ex.Message
+                });
+            }
+        }
+
+
     }
 }

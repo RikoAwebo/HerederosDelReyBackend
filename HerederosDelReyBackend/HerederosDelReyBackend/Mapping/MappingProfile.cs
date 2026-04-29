@@ -8,68 +8,69 @@ namespace HerederosDelReyBackend.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Usuario, UsuarioDto>();
-            CreateMap<UsuarioCreateDto, Usuario>();
-            CreateMap<UsuarioUpdateDto, Usuario>();
+            // =========================
+            // VENTAS (CORRECTO)
+            // =========================
 
-            CreateMap<Cliente, ClienteDto>();
-            CreateMap<ClienteCreateDto, Cliente>();
-            CreateMap<ClienteUpdateDto, Cliente>();
-
-            CreateMap<Categoria, CategoriaDto>();
-            CreateMap<CategoriaCreateDto,  Categoria>();
-            CreateMap<CategoriaUpdateDto, Categoria>();
-
-            CreateMap<Proveedor, ProveedoresDto>();
-            CreateMap<ProveedoresCreateDto, Proveedor>();
-            CreateMap<ProveedoresUptadeDto, Proveedor>();
-
-            CreateMap<Compra, CompraDto>()
-                .ForMember(dest => dest.NombreProveedor,
-                 opt => opt.MapFrom(src => src.Proveedor != null ? src.Proveedor.Nombre : null))
-
-             .ForMember(dest => dest.NombreUsuario,
-                 opt => opt.MapFrom(src => src.Usuario != null ? src.Usuario.NombreUsuario : null));
-            CreateMap<CompraCreateDto, Compra>();
-            CreateMap<CompraUpdateDto, Compra>();
-
-            CreateMap<DetalleCompra, DetalleCompraDto>();
-            CreateMap<DetalleCompraCreateDto, DetalleCompra>();
-            CreateMap<DetalleCompraUpdateDto, DetalleCompra>();
-
-            CreateMap<Caja, CajaDto>();
-            CreateMap<CajaCreateDto, Caja>();
-            CreateMap<CajaUpdateDto, Caja>();
-
+            // SOLO LECTURA (NO CREACIÓN)
             CreateMap<Venta, VentaDto>()
-             .ForMember(dest => dest.ClienteNombre,
-                 opt => opt.MapFrom(src => src.Cliente != null ? src.Cliente.Nombre : null))
+                .ForMember(dest => dest.ClienteNombre,
+                    opt => opt.MapFrom(src => src.Cliente != null ? src.Cliente.Nombre : null))
+                .ForMember(dest => dest.UsuarioNombre,
+                    opt => opt.MapFrom(src => src.Usuario != null ? src.Usuario.NombreUsuario : null));
 
-             .ForMember(dest => dest.UsuarioNombre,
-                 opt => opt.MapFrom(src => src.Usuario != null ? src.Usuario.NombreUsuario : null));
-            CreateMap<VentaCreateDto, Venta>();
+            // CREAR VENTA (ESTO ES LO IMPORTANTE)
+            CreateMap<VentaCreateDto, Venta>()
+                .ForMember(x => x.Id, opt => opt.Ignore())
+                .ForMember(x => x.Usuario, opt => opt.Ignore())
+                .ForMember(x => x.Cliente, opt => opt.Ignore());
+
             CreateMap<VentaUpdateDto, Venta>();
 
-            CreateMap<Marca, MarcaDto>();
-            CreateMap<MarcaCreateDto, Marca>();
-            CreateMap<MarcaUpdateDto, Marca>();
+            // =========================
+            // DETALLE VENTA
+            // =========================
 
-            CreateMap<Gasto, GastosDto>();
-            CreateMap<GastosCreateDto, Gasto>();
-            CreateMap<GastosUpdateDto, Gasto>();
+            CreateMap<DetalleVentaDto, DetalleVenta>()
+                .ForMember(x => x.Id, opt => opt.Ignore())
+                .ForMember(x => x.Venta, opt => opt.Ignore())
+                .ForMember(x => x.Producto, opt => opt.Ignore());
+
+            // =========================
+            // TODO LO DEMÁS (SIN CAMBIOS IMPORTANTES)
+            // =========================
+
+            CreateMap<Usuario, UsuarioDto>().ReverseMap();
+            CreateMap<UsuarioCreateDto, Usuario>().ReverseMap();
+            CreateMap<UsuarioUpdateDto, Usuario>().ReverseMap();
+            CreateMap<VentaDto, Venta>().ReverseMap();
+            CreateMap<Cliente, ClienteDto>().ReverseMap();
+            CreateMap<ClienteCreateDto, Cliente>().ReverseMap();
+            CreateMap<ClienteUpdateDto, Cliente>().ReverseMap();
+
+            CreateMap<Categoria, CategoriaDto>().ReverseMap();
+            CreateMap<CategoriaCreateDto, Categoria>().ReverseMap();
+            CreateMap<CategoriaUpdateDto, Categoria>().ReverseMap();
+
+            CreateMap<Proveedor, ProveedoresDto>().ReverseMap();
+            CreateMap<ProveedoresCreateDto, Proveedor>().ReverseMap();
+            CreateMap<ProveedoresUptadeDto, Proveedor>().ReverseMap();
+
+            CreateMap<Marca, MarcaDto>().ReverseMap();
+            CreateMap<MarcaCreateDto, Marca>().ReverseMap();
+            CreateMap<MarcaUpdateDto, Marca>().ReverseMap();
 
             CreateMap<Producto, ProductoDto>()
-             .ForMember(dest => dest.NombreMarca,
-                 opt => opt.MapFrom(src => src.Marca != null ? src.Marca.Nombre : null))
+                .ForMember(dest => dest.NombreMarca,
+                    opt => opt.MapFrom(src => src.Marca != null ? src.Marca.Nombre : null))
+                .ForMember(dest => dest.NombreCategoria,
+                    opt => opt.MapFrom(src => src.Categoria != null ? src.Categoria.Nombre : null));
 
-             .ForMember(dest => dest.NombreCategoria,
-                 opt => opt.MapFrom(src => src.Categoria != null ? src.Categoria.Nombre : null));
-            CreateMap<ProductoCreateDto, Producto>();
+            CreateMap<ProductoCreateDto, Producto>()
+                .ForMember(x => x.Marca, opt => opt.Ignore())
+                .ForMember(x => x.Categoria, opt => opt.Ignore());
+
             CreateMap<ProductoUpdateDto, Producto>();
-
-            CreateMap<DetalleCompra, DetalleCompraDto>();
-            CreateMap<DetalleCompraCreateDto, DetalleCompra>();
-            CreateMap<DetalleCompraUpdateDto, DetalleCompra>();
         }
     }
 }

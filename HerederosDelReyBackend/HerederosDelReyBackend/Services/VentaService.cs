@@ -3,6 +3,7 @@ using HerederosDelReyBackend.Data;
 using HerederosDelReyBackend.DTOs;
 using HerederosDelReyBackend.Interfaces;
 using HerederosDelReyBackend.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HerederosDelReyBackend.Services
 {
@@ -79,6 +80,62 @@ namespace HerederosDelReyBackend.Services
             var objetoDto = _mapper.Map<IEnumerable<VentaDto>>(objeto);
 
             return new ApiResponse<IEnumerable<VentaDto>>(objetoDto, objeto.MetaData);
+        }
+
+
+
+        public async Task<bool> VentaDetalle(VentaDetalleDto dto)
+        {
+            if (dto == null || dto.Venta == null)
+                throw new Exception("Datos de venta inválidos");
+
+            // =========================
+            // 1. CREAR VENTA
+            // =========================
+            var venta = _mapper.Map<Venta>(dto.Venta);
+            venta.Fecha = DateTime.Now;
+
+            await _unitOfWork.Ventas.AddAsync(venta);
+            await _unitOfWork.SaveChangesAsync(); // genera ID
+
+            // =========================
+            // 2. VALIDAR DETALLES
+            // =========================
+            if (dto.Detalle == null || !dto.Detalle.Any())
+                throw new Exception("La venta no tiene detalles");
+
+            foreach (var detalleDto in dto.Detalle)
+            {
+                var detalle = _mapper.Map<DetalleVenta>(detalleDto);
+
+                detalle.VentaId = venta.Id;
+
+                // =========================
+                // 3. VALIDAR PRODUCTO
+                // =========================
+                if (detalle.ProductoId > 0)
+                {
+                    var producto = await _unitOfWork.Productos.GetByIdAsync(detalle.ProductoId.Value);
+
+                    if (producto == null)
+                        throw new Exception("Producto no encontrado");
+
+                    if (producto.Stock < detalle.Cantidad)
+                        throw new Exception($"Stock insuficiente para {producto.Nombre}");
+
+                    producto.Stock -= detalle.Cantidad;
+                    _unitOfWork.Productos.Update(producto);
+                }
+
+                await _unitOfWork.DetalleVentas.AddAsync(detalle);
+            }
+
+            // =========================
+            // 4. GUARDAR TODO JUNTO
+            // =========================
+            await _unitOfWork.SaveChangesAsync();
+
+            return true;
         }
     }
 }
