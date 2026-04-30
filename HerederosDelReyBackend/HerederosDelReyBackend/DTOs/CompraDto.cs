@@ -16,6 +16,8 @@ namespace HerederosDelReyBackend.DTOs
 
         public int? UsuarioId { get; set; }
 
+        public int? ProductoId { get; set; }
+
         public string? NombreProveedor { get; set; }
 
         public string? NombreUsuario { get; set; }

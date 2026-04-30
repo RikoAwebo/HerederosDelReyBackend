@@ -44,7 +44,7 @@ public partial class HerederosDelReyContext : DbContext
     {
         modelBuilder.Entity<Caja>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Caja__3214EC077D009010");
+            entity.HasKey(e => e.Id).HasName("PK__Caja__3214EC071F63F276");
 
             entity.ToTable("Caja");
 
@@ -72,12 +72,12 @@ public partial class HerederosDelReyContext : DbContext
 
             entity.HasOne(d => d.Usuario).WithMany(p => p.Cajas)
                 .HasForeignKey(d => d.UsuarioId)
-                .HasConstraintName("FK__Caja__Usuario_Id__60A75C0F");
+                .HasConstraintName("FK__Caja__Usuario_Id__6FE99F9F");
         });
 
         modelBuilder.Entity<Categoria>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Categori__3214EC074DB5454F");
+            entity.HasKey(e => e.Id).HasName("PK__Categori__3214EC07431CB474");
 
             entity.Property(e => e.Borrado).HasDefaultValue(false);
             entity.Property(e => e.Descripcion)
@@ -93,7 +93,7 @@ public partial class HerederosDelReyContext : DbContext
 
         modelBuilder.Entity<Cliente>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Clientes__3214EC07969A5542");
+            entity.HasKey(e => e.Id).HasName("PK__Clientes__3214EC07F4A9D2D3");
 
             entity.Property(e => e.Borrado).HasDefaultValue(false);
             entity.Property(e => e.Direccion)
@@ -115,7 +115,7 @@ public partial class HerederosDelReyContext : DbContext
 
         modelBuilder.Entity<Compra>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Compras__3214EC07659B208D");
+            entity.HasKey(e => e.Id).HasName("PK__Compras__3214EC07EE194168");
 
             entity.Property(e => e.Borrado).HasDefaultValue(false);
             entity.Property(e => e.Descripcion)
@@ -133,16 +133,16 @@ public partial class HerederosDelReyContext : DbContext
 
             entity.HasOne(d => d.Proveedor).WithMany(p => p.Compras)
                 .HasForeignKey(d => d.ProveedorId)
-                .HasConstraintName("FK__Compras__Proveed__66603565");
+                .HasConstraintName("FK__Compras__Proveed__5535A963");
 
             entity.HasOne(d => d.Usuario).WithMany(p => p.Compras)
                 .HasForeignKey(d => d.UsuarioId)
-                .HasConstraintName("FK__Compras__Usuario__6754599E");
+                .HasConstraintName("FK__Compras__Usuario__5629CD9C");
         });
 
         modelBuilder.Entity<DetalleCompra>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__DetalleC__3214EC07B8CBA933");
+            entity.HasKey(e => e.Id).HasName("PK__DetalleC__3214EC074FF720A9");
 
             entity.Property(e => e.Borrado).HasDefaultValue(false);
             entity.Property(e => e.CompraId).HasColumnName("Compra_Id");
@@ -150,19 +150,25 @@ public partial class HerederosDelReyContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.Precio).HasColumnType("decimal(10, 2)");
-            entity.Property(e => e.Producto)
-                .HasMaxLength(100)
-                .IsUnicode(false);
-            entity.Property(e => e.Subtotal).HasColumnType("decimal(10, 2)");
+            entity.Property(e => e.ProductoId).HasColumnName("Producto_Id");
+            entity.Property(e => e.Subtotal)
+                .HasDefaultValue(0m)
+                .HasColumnType("decimal(10, 2)");
 
             entity.HasOne(d => d.Compra).WithMany(p => p.DetalleCompras)
                 .HasForeignKey(d => d.CompraId)
-                .HasConstraintName("FK__DetalleCo__Compr__6C190EBB");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__DetalleCo__Compr__5BE2A6F2");
+
+            entity.HasOne(d => d.Producto).WithMany(p => p.DetalleCompras)
+                .HasForeignKey(d => d.ProductoId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__DetalleCo__Produ__5CD6CB2B");
         });
 
         modelBuilder.Entity<DetalleVenta>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__DetalleV__3214EC07FC28E745");
+            entity.HasKey(e => e.Id).HasName("PK__DetalleV__3214EC07EAB7FEC8");
 
             entity.Property(e => e.Borrado).HasDefaultValue(false);
             entity.Property(e => e.FechaCreacion)
@@ -180,16 +186,16 @@ public partial class HerederosDelReyContext : DbContext
 
             entity.HasOne(d => d.Producto).WithMany(p => p.DetalleVenta)
                 .HasForeignKey(d => d.ProductoId)
-                .HasConstraintName("FK__DetalleVe__Produ__5BE2A6F2");
+                .HasConstraintName("FK__DetalleVe__Produ__6B24EA82");
 
             entity.HasOne(d => d.Venta).WithMany(p => p.DetalleVenta)
                 .HasForeignKey(d => d.VentaId)
-                .HasConstraintName("FK__DetalleVe__Venta__5AEE82B9");
+                .HasConstraintName("FK__DetalleVe__Venta__6A30C649");
         });
 
         modelBuilder.Entity<Gasto>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Gastos__3214EC07D0489433");
+            entity.HasKey(e => e.Id).HasName("PK__Gastos__3214EC078206A52F");
 
             entity.Property(e => e.Borrado).HasDefaultValue(false);
             entity.Property(e => e.Descripcion)
@@ -205,7 +211,7 @@ public partial class HerederosDelReyContext : DbContext
 
         modelBuilder.Entity<Marca>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Marcas__3214EC0746CA9BAF");
+            entity.HasKey(e => e.Id).HasName("PK__Marcas__3214EC07505E3EBA");
 
             entity.Property(e => e.Borrado).HasDefaultValue(false);
             entity.Property(e => e.FechaCreacion)
@@ -218,7 +224,7 @@ public partial class HerederosDelReyContext : DbContext
 
         modelBuilder.Entity<Producto>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Producto__3214EC0796CD9A3B");
+            entity.HasKey(e => e.Id).HasName("PK__Producto__3214EC07BE30556D");
 
             entity.Property(e => e.Borrado).HasDefaultValue(false);
             entity.Property(e => e.CategoriaId).HasColumnName("Categoria_Id");
@@ -247,7 +253,7 @@ public partial class HerederosDelReyContext : DbContext
 
         modelBuilder.Entity<Proveedor>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Proveedo__3214EC07A1D3DEF2");
+            entity.HasKey(e => e.Id).HasName("PK__Proveedo__3214EC0727DE0A12");
 
             entity.Property(e => e.Borrado).HasDefaultValue(false);
             entity.Property(e => e.Direccion)
@@ -269,7 +275,7 @@ public partial class HerederosDelReyContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Usuarios__3214EC07F8F9E090");
+            entity.HasKey(e => e.Id).HasName("PK__Usuarios__3214EC07A2C6EF5F");
 
             entity.Property(e => e.Borrado).HasDefaultValue(false);
             entity.Property(e => e.Clave)
@@ -291,7 +297,7 @@ public partial class HerederosDelReyContext : DbContext
 
         modelBuilder.Entity<Venta>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Ventas__3214EC071F2D9878");
+            entity.HasKey(e => e.Id).HasName("PK__Ventas__3214EC07937C8085");
 
             entity.Property(e => e.Borrado).HasDefaultValue(false);
             entity.Property(e => e.ClienteId).HasColumnName("Cliente_Id");
@@ -313,11 +319,11 @@ public partial class HerederosDelReyContext : DbContext
 
             entity.HasOne(d => d.Cliente).WithMany(p => p.Venta)
                 .HasForeignKey(d => d.ClienteId)
-                .HasConstraintName("FK__Ventas__Cliente___5535A963");
+                .HasConstraintName("FK__Ventas__Cliente___6477ECF3");
 
             entity.HasOne(d => d.Usuario).WithMany(p => p.Venta)
                 .HasForeignKey(d => d.UsuarioId)
-                .HasConstraintName("FK__Ventas__Usuario___5629CD9C");
+                .HasConstraintName("FK__Ventas__Usuario___656C112C");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -62,11 +62,12 @@ namespace HerederosDelReyBackend.Services
             if (compra == null)
                 return false;
 
-            compra.Producto = dto.Producto;
+            
             compra.Cantidad = dto.Cantidad;
             compra.Precio = dto.Precio;
             compra.Subtotal = dto.Subtotal;
             compra.CompraId = dto.CompraId;
+            compra.ProductoId = dto.ProductoId;
 
 
             _unitOfWork.DetalleCompras.Update(compra);
@@ -76,7 +77,7 @@ namespace HerederosDelReyBackend.Services
 
         public async Task<ApiResponse<IEnumerable<DetalleCompraDto>>> GetAllAsync(PostQueryFilter filter)
         {
-            var objeto = await _unitOfWork.Clientes.GetAllAsync(filter);
+            var objeto = await _unitOfWork.DetalleCompras.GetAllAsync(filter);
             var objetoDto = _mapper.Map<IEnumerable<DetalleCompraDto>>(objeto);
 
             return new ApiResponse<IEnumerable<DetalleCompraDto>>(objetoDto, objeto.MetaData);

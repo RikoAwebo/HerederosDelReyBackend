@@ -5,11 +5,14 @@ namespace HerederosDelReyBackend.Models;
 
 public partial class Compra : BaseEntity
 {
+  
+
     public DateTime? Fecha { get; set; }
 
     public decimal? Total { get; set; }
 
     public string? Descripcion { get; set; }
+
 
     public int? ProveedorId { get; set; }
 

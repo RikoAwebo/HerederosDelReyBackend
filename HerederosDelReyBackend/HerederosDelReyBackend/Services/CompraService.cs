@@ -80,5 +80,61 @@ namespace HerederosDelReyBackend.Services
 
             return new ApiResponse<IEnumerable<CompraDto>>(objetoDto, objeto.MetaData);
         }
+
+        public async Task<bool> CompraDetalle(CompraDetalleDto dto)
+        {
+            if (dto == null || dto.Compra == null)
+                throw new Exception("Datos de compra inválidos");
+
+            // =========================
+            // 1. CREAR COMPRA
+            // =========================
+            var compra = _mapper.Map<Compra>(dto.Compra);
+            compra.Fecha = DateTime.Now;
+
+            await _unitOfWork.Compra.AddAsync(compra);
+            await _unitOfWork.SaveChangesAsync(); // genera ID
+
+            // =========================
+            // 2. VALIDAR DETALLES
+            // =========================
+            if (dto.Detalle == null || !dto.Detalle.Any())
+                throw new Exception("La compra no tiene detalles");
+
+            foreach (var detalleDto in dto.Detalle)
+            {
+                var detalle = _mapper.Map<DetalleCompra>(detalleDto);
+
+                detalle.CompraId = compra.Id;
+
+                // =========================
+                // 3. VALIDAR PRODUCTO
+                // =========================
+                if (detalle.ProductoId > 0)
+                {
+
+                    var producto = await _unitOfWork.Productos.GetByIdAsync(detalle.ProductoId);
+
+                    if (producto == null)
+                        throw new Exception("Producto no encontrado");
+
+                    // =========================
+                    // AUMENTAR STOCK
+                    // =========================
+                    producto.Stock += detalle.Cantidad;
+
+                    _unitOfWork.Productos.Update(producto);
+                }
+
+                await _unitOfWork.DetalleCompras.AddAsync(detalle);
+            }
+
+             //=========================
+             //4.GUARDAR TODO JUNTO
+             //=========================
+            await _unitOfWork.SaveChangesAsync();
+
+            return true;
+        }
     }
 }
