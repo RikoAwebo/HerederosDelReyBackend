@@ -11,5 +11,6 @@ namespace HerederosDelReyBackend.Interfaces
         Task<bool> UpdateAsync(int id, CajaUpdateDto dto);
         Task<bool> DeleteAsync(int id);
         Task<ApiResponse<IEnumerable<CajaDto>>> GetAllAsync(PostQueryFilter filter);
+        Task<bool> CerrarCajaAsync(int id);
     }
 }

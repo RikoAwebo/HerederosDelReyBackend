@@ -76,11 +76,29 @@ namespace HerederosDelReyBackend.Services
         public async Task<ApiResponse<IEnumerable<CompraDto>>> GetAllAsync(PostQueryFilter filter)
         {
             var objeto = await _unitOfWork.Compra.GetAllAsync(filter);
-            var objetoDto = _mapper.Map<IEnumerable<CompraDto>>(objeto);
+
+            var objetoDto = objeto.Select(c => new CompraDto
+            {
+                Id = c.Id,
+                Fecha = c.Fecha,
+                Total = c.Total,
+                Descripcion = c.Descripcion,
+
+                ProveedorId = c.ProveedorId,
+                UsuarioId = c.UsuarioId,
+
+                // 👇 Llaves foráneas resueltas manualmente
+                NombreProveedor = c.Proveedor != null
+                    ? c.Proveedor.Nombre
+                    : "Sin proveedor",
+
+                NombreUsuario = c.Usuario != null
+                    ? c.Usuario.NombreUsuario
+                    : "Sin usuario"
+            });
 
             return new ApiResponse<IEnumerable<CompraDto>>(objetoDto, objeto.MetaData);
         }
-
         public async Task<bool> CompraDetalle(CompraDetalleDto dto)
         {
             if (dto == null || dto.Compra == null)

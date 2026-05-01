@@ -37,6 +37,7 @@ namespace HerederosDelReyBackend.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            dto.FechaApertura = DateTime.Now;
             var creado = await _service.AddAsync(dto);
 
             return CreatedAtAction(nameof(GetById), new { id = creado.Id }, creado);
@@ -70,6 +71,14 @@ namespace HerederosDelReyBackend.Controllers
         public async Task<IActionResult> GetAllPag([FromQuery] PostQueryFilter filter)
         {
             var response = await _service.GetAllAsync(filter);
+            return Ok(response);
+        }
+
+
+        [HttpPut("Cerrar/{id}")]
+        public async Task<IActionResult> CerrarCaja(int id)
+        {
+            var response = await _service.CerrarCajaAsync(id);
             return Ok(response);
         }
 

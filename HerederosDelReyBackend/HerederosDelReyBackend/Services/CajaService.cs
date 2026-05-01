@@ -21,6 +21,7 @@ namespace HerederosDelReyBackend.Services
         {
             var Objeto = _mapper.Map<Caja>(dto);
 
+            Objeto.FechaApertura = DateTime.UtcNow.AddHours(-4);
             await _unitOfWork.Caja.AddAsync(Objeto);
             await _unitOfWork.SaveChangesAsync();
             return _mapper.Map<CajaDto>(Objeto);
@@ -83,6 +84,33 @@ namespace HerederosDelReyBackend.Services
 
             return new ApiResponse<IEnumerable<CajaDto>>(objetosDto, objetos.MetaData);
         }
+
+
+        public async Task<bool> CerrarCajaAsync(int id)
+        {
+            var caja = await _unitOfWork.Caja.GetByIdAsync(id);
+
+            if (caja == null)
+                return false;
+
+            if (caja.Estado == "CERRADA")
+                return false;
+
+            var ventas = _unitOfWork.Ventas.GetAllAsQueryable()
+                .Where(x => x.FechaCreacion >= caja.FechaApertura);
+
+            var totalVentas = ventas.Sum(x => (decimal?)x.Total) ?? 0;
+
+            caja.MontoFinal = (caja.MontoInicial ?? 0) + totalVentas - (caja.Gastos ?? 0);
+            caja.FechaCierre = DateTime.UtcNow;
+            caja.Estado = "CERRADA";
+
+            _unitOfWork.Caja.Update(caja);
+            await _unitOfWork.SaveChangesAsync();
+
+            return true;
+        }
+
 
     }
 

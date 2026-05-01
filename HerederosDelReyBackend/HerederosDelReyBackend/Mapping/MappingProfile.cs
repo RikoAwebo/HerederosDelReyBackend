@@ -14,10 +14,11 @@ namespace HerederosDelReyBackend.Mapping
 
             // SOLO LECTURA (NO CREACIÓN)
             CreateMap<Venta, VentaDto>()
-                .ForMember(dest => dest.ClienteNombre,
-                    opt => opt.MapFrom(src => src.Cliente != null ? src.Cliente.Nombre : null))
+                
                 .ForMember(dest => dest.UsuarioNombre,
-                    opt => opt.MapFrom(src => src.Usuario != null ? src.Usuario.NombreUsuario : null));
+                    opt => opt.MapFrom(src => src.Usuario != null ? src.Usuario.NombreUsuario : null))
+                .ForMember(dest => dest.ClienteNombre,
+                    opt => opt.MapFrom(src => src.Cliente != null ? src.Cliente.Nombre : null));
 
             // CREAR VENTA (ESTO ES LO IMPORTANTE)
             CreateMap<VentaCreateDto, Venta>()
@@ -85,12 +86,19 @@ namespace HerederosDelReyBackend.Mapping
             CreateMap<CajaUpdateDto, Caja>().ReverseMap();
 
 
-
             CreateMap<Compra, CompraDto>()
-                 .ForMember(dest => dest.NombreProveedor,
-                    opt => opt.MapFrom(src => src.Proveedor != null ? src.Proveedor.Nombre : null))
-                .ForMember(dest => dest.NombreUsuario,
-                    opt => opt.MapFrom(src => src.Usuario != null ? src.Usuario.NombreUsuario : null));
+      .ForMember(dest => dest.NombreProveedor,
+          opt => opt.MapFrom(src => src.Proveedor != null ? src.Proveedor.Nombre : null))
+      .ForMember(dest => dest.NombreUsuario,
+          opt => opt.MapFrom(src => src.Usuario != null ? src.Usuario.NombreUsuario : null))
+      .ForMember(dest => dest.ProductoId,
+          opt => opt.MapFrom(src => src.DetalleCompras
+              .Select(d => d.ProductoId)
+              .FirstOrDefault()))
+      .ReverseMap()
+      .ForMember(x => x.Proveedor, opt => opt.Ignore())
+      .ForMember(x => x.Usuario, opt => opt.Ignore())
+      .ForMember(x => x.DetalleCompras, opt => opt.Ignore());
 
             CreateMap<CompraCreateDto, Compra>()
                  .ForMember(x => x.Id, opt => opt.Ignore())
@@ -103,6 +111,9 @@ namespace HerederosDelReyBackend.Mapping
             CreateMap<DetalleCompra, DetalleCompraDto>().ReverseMap();
             CreateMap<DetalleCompraCreateDto, DetalleCompra>().ReverseMap();
             CreateMap<DetalleCompraUpdateDto, DetalleCompra>().ReverseMap();
+
+            CreateMap<Compra, CompraDto>().ReverseMap();
+
         }
     }
 }
