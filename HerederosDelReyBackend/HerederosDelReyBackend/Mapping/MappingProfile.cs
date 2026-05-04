@@ -81,7 +81,9 @@ namespace HerederosDelReyBackend.Mapping
             CreateMap<GastosUpdateDto, Gasto>().ReverseMap();
 
 
-            CreateMap<Caja, CajaDto>().ReverseMap();
+            CreateMap<Caja, CajaDto>()
+                 .ForMember(dest => dest.UsuarioName,
+                    opt => opt.MapFrom(src => src.Usuario != null ? src.Usuario.NombreUsuario : null));
             CreateMap<CajaCreateDto, Caja>().ReverseMap();
             CreateMap<CajaUpdateDto, Caja>().ReverseMap();
 

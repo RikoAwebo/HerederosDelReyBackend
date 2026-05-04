@@ -17,5 +17,7 @@
         public string? Estado { get; set; }
 
         public int? UsuarioId { get; set; }
+
+        public string? UsuarioName { get; set; }
     }
 }

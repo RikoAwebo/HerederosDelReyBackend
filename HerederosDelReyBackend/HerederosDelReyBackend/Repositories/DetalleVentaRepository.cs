@@ -2,6 +2,7 @@
 using HerederosDelReyBackend.DTOs;
 using HerederosDelReyBackend.Interfaces;
 using HerederosDelReyBackend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HerederosDelReyBackend.Repositories
 {
@@ -26,6 +27,18 @@ namespace HerederosDelReyBackend.Repositories
             }
 
             return await PagedList<DetalleVenta>.CreateAsync(query, filter.PageNumber, filter.PageSize);
+        }
+
+        public async Task<List<DetalleVenta>> GetDetallesFecha(DateTime fechaInicio, DateTime fechaFinal)
+        {
+            var query = GetAllAsQueryable();
+
+            query = query.Where(x => x.FechaCreacion.Date >= fechaInicio.Date && x.FechaCreacion.Date <= fechaFinal.Date && x.Borrado != true).Include(x=>x.Producto);
+
+            return await query.ToListAsync();
+
+
+
         }
     }
 }

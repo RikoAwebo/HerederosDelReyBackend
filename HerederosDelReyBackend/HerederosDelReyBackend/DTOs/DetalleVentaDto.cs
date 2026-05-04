@@ -14,5 +14,7 @@
         public int? VentaId { get; set; }
 
         public int? ProductoId { get; set; }
+
+        public DateTime Fecha { get; set; }
     }
 }

@@ -20,6 +20,9 @@ namespace HerederosDelReyBackend.Repositories
         private IProductoRepository? _productoRepository;
         private IDetalleVentaRepository? _detalleVentaRepository;
 
+        private IReporteService? _reporteService;
+      
+
         public UnitOfWork(HerederosDelReyContext context)
         {
             _context = context;
@@ -58,6 +61,10 @@ namespace HerederosDelReyBackend.Repositories
             
         public IDetalleVentaRepository DetalleVentas
             => _detalleVentaRepository ??= new DetalleVentaRepository(_context);
+
+
+
+
 
         public async Task<int> SaveChangesAsync()
         {

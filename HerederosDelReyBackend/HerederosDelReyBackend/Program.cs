@@ -104,7 +104,9 @@ builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 builder.Services.AddScoped<IProductoService, ProductoService>();
 
 builder.Services.AddScoped<IDetalleVentaRepository, DetalleVentaRepository>();
-builder.Services.AddScoped<IDetalleVentaService, DetalleVentaService>();    
+builder.Services.AddScoped<IDetalleVentaService, DetalleVentaService>();
+
+builder.Services.AddScoped<IReporteService, ReporteService>();
 
 // =========================
 // AutoMapper v16
