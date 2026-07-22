@@ -3,20 +3,45 @@ using System.Collections.Generic;
 
 namespace HerederosDelReyBackend.Models;
 
-public partial class Usuario : BaseEntity
+public partial class Usuario
 {
+    public int IdUsuario { get; set; }
 
-    public string? NombreUsuario { get; set; }
+    public int IdSucursal { get; set; }
 
-    public string? Email { get; set; }
+    public string Nombres { get; set; } = null!;
 
-    public string? Clave { get; set; }
+    public string? Apellidos { get; set; }
 
     public string? Rol { get; set; }
 
-    public virtual ICollection<Caja> Cajas { get; set; } = new List<Caja>();
+    public string Usuario1 { get; set; } = null!;
+
+    public string PasswordHash { get; set; } = null!;
+
+    public string? Telefono { get; set; }
+
+    public string? Correo { get; set; }
+
+    public string? Foto { get; set; }
+
+    public bool? Estado { get; set; }
+
+    public DateTime? FechaRegistro { get; set; }
+
+    public DateTime? FechaModificacion { get; set; }
+
+    public DateTime? FechaEliminacion { get; set; }
+
+    public virtual ICollection<Caja> CajaIdUsuarioAperturaNavigations { get; set; } = new List<Caja>();
+
+    public virtual ICollection<Caja> CajaIdUsuarioCierreNavigations { get; set; } = new List<Caja>();
 
     public virtual ICollection<Compra> Compras { get; set; } = new List<Compra>();
+
+    public virtual ICollection<Gasto> Gastos { get; set; } = new List<Gasto>();
+
+    public virtual Sucursale IdSucursalNavigation { get; set; } = null!;
 
     public virtual ICollection<Venta> Venta { get; set; } = new List<Venta>();
 }

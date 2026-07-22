@@ -3,23 +3,21 @@ using System.Collections.Generic;
 
 namespace HerederosDelReyBackend.Models;
 
-public partial class Cliente
+public partial class Proveedore
 {
-    public int IdCliente { get; set; }
+    public int IdProveedor { get; set; }
 
-    public string Nombres { get; set; } = null!;
+    public string Nombre { get; set; } = null!;
 
-    public string? Apellidos { get; set; }
+    public string? Contacto { get; set; }
 
-    public string? NitCi { get; set; }
+    public string? Nit { get; set; }
 
     public string? Telefono { get; set; }
 
     public string? Correo { get; set; }
 
     public string? Direccion { get; set; }
-
-    public DateOnly? FechaNacimiento { get; set; }
 
     public string? Observacion { get; set; }
 
@@ -31,5 +29,5 @@ public partial class Cliente
 
     public DateTime? FechaEliminacion { get; set; }
 
-    public virtual ICollection<Venta> Venta { get; set; } = new List<Venta>();
+    public virtual ICollection<Compra> Compras { get; set; } = new List<Compra>();
 }

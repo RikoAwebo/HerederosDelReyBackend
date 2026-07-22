@@ -3,19 +3,19 @@ using System.Collections.Generic;
 
 namespace HerederosDelReyBackend.Models;
 
-public partial class Gasto
+public partial class Pago
 {
-    public int IdGasto { get; set; }
+    public int IdPago { get; set; }
+
+    public int IdVenta { get; set; }
 
     public int IdCaja { get; set; }
 
-    public int IdUsuario { get; set; }
-
-    public string Concepto { get; set; } = null!;
-
-    public string? NumeroComprobante { get; set; }
+    public string MetodoPago { get; set; } = null!;
 
     public decimal Monto { get; set; }
+
+    public string? Referencia { get; set; }
 
     public string? Observacion { get; set; }
 
@@ -29,5 +29,5 @@ public partial class Gasto
 
     public virtual Caja IdCajaNavigation { get; set; } = null!;
 
-    public virtual Usuario IdUsuarioNavigation { get; set; } = null!;
+    public virtual Venta IdVentaNavigation { get; set; } = null!;
 }

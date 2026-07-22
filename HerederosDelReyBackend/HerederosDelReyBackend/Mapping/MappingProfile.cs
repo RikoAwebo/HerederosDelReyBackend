@@ -83,7 +83,7 @@ namespace HerederosDelReyBackend.Mapping
 
             CreateMap<Caja, CajaDto>()
                  .ForMember(dest => dest.UsuarioName,
-                    opt => opt.MapFrom(src => src.Usuario != null ? src.Usuario.NombreUsuario : null));
+                    opt => opt.MapFrom(src => src.u != null ? src.Usuario.NombreUsuario : null));
             CreateMap<CajaCreateDto, Caja>().ReverseMap();
             CreateMap<CajaUpdateDto, Caja>().ReverseMap();
 

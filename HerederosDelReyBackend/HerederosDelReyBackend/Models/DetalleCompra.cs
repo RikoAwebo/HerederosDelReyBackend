@@ -3,23 +3,39 @@ using System.Collections.Generic;
 
 namespace HerederosDelReyBackend.Models;
 
-public partial class DetalleCompra : BaseEntity
+public partial class DetalleCompra
 {
-  
+    public int IdDetalleCompra { get; set; }
 
-    public int Cantidad { get; set; }
+    public int IdCompra { get; set; }
 
-    public decimal Precio { get; set; }
+    public int IdProducto { get; set; }
 
-    public decimal? Subtotal { get; set; }
+    public int? IdLote { get; set; }
 
+    public decimal Cantidad { get; set; }
 
+    public decimal PrecioCompra { get; set; }
 
-    public int CompraId { get; set; }
+    public decimal Descuento { get; set; }
 
-    public int ProductoId { get; set; }
+    public decimal Impuesto { get; set; }
 
-    public virtual Compra Compra { get; set; } = null!;
+    public decimal SubTotal { get; set; }
 
-    public virtual Producto Producto { get; set; } = null!;
+    public bool Estado { get; set; }
+
+    public bool Eliminado { get; set; }
+
+    public DateTime FechaRegistro { get; set; }
+
+    public DateTime? FechaModificacion { get; set; }
+
+    public DateTime? FechaEliminacion { get; set; }
+
+    public virtual Compra IdCompraNavigation { get; set; } = null!;
+
+    public virtual Lote? IdLoteNavigation { get; set; }
+
+    public virtual Producto IdProductoNavigation { get; set; } = null!;
 }
