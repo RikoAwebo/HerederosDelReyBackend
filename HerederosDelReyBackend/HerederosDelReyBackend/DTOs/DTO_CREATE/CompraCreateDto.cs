@@ -1,11 +1,10 @@
 ﻿using HerederosDelReyBackend.Models;
 
-namespace HerederosDelReyBackend.DTOs
+namespace HerederosDelReyBackend.DTOs.DTO_CREATE
 {
-    public class CompraDto
+    public class CompraCreateDto
     {
-        public int Id { get; set; }
-
+        
         public DateTime? Fecha { get; set; }
 
         public decimal? Total { get; set; }
@@ -15,12 +14,6 @@ namespace HerederosDelReyBackend.DTOs
         public int? ProveedorId { get; set; }
 
         public int? UsuarioId { get; set; }
-
-        public int? ProductoId { get; set; }
-
-        public string? NombreProveedor { get; set; }
-
-        public string? NombreUsuario { get; set; }
 
     }
 }

@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using HerederosDelReyBackend.Data;
 using HerederosDelReyBackend.DTOs;
+using HerederosDelReyBackend.DTOs.DTO;
+using HerederosDelReyBackend.DTOs.DTO_UPDATE;
 using HerederosDelReyBackend.Interfaces;
 using HerederosDelReyBackend.Models;
 

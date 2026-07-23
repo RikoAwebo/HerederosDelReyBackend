@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace HerederosDelReyBackend.Models;
 
-public partial class Pago
+public partial class Pago : BaseEntity
 {
-    public int IdPago { get; set; }
 
     public int IdVenta { get; set; }
 
@@ -19,14 +18,7 @@ public partial class Pago
 
     public string? Observacion { get; set; }
 
-    public bool Estado { get; set; }
-
-    public DateTime FechaRegistro { get; set; }
-
-    public DateTime? FechaModificacion { get; set; }
-
-    public DateTime? FechaEliminacion { get; set; }
-
+    
     public virtual Caja IdCajaNavigation { get; set; } = null!;
 
     public virtual Venta IdVentaNavigation { get; set; } = null!;

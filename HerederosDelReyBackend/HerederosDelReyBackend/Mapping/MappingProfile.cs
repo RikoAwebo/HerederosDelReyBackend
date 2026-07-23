@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using HerederosDelReyBackend.DTOs;
+using HerederosDelReyBackend.DTOs.DTO;
+using HerederosDelReyBackend.DTOs.DTO_CREATE;
+using HerederosDelReyBackend.DTOs.DTO_UPDATE;
 using HerederosDelReyBackend.Models;
 
 namespace HerederosDelReyBackend.Mapping

@@ -1,5 +1,7 @@
 ﻿using HerederosDelReyBackend.Data;
 using HerederosDelReyBackend.DTOs;
+using HerederosDelReyBackend.DTOs.DTO;
+using HerederosDelReyBackend.DTOs.DTO_UPDATE;
 
 namespace HerederosDelReyBackend.Interfaces
 {

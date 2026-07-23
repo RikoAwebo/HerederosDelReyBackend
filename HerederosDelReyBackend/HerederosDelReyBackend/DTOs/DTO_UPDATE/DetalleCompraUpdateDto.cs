@@ -1,14 +1,12 @@
-﻿namespace HerederosDelReyBackend.DTOs
+﻿namespace HerederosDelReyBackend.DTOs.DTO_UPDATE
 {
-    public class DetalleCompraCreateDto
+    public class DetalleCompraUpdateDto
     {
         public int Cantidad { get; set; }
 
         public decimal Precio { get; set; }
 
         public decimal? Subtotal { get; set; }
-
-
 
         public int CompraId { get; set; }
 

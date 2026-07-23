@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace HerederosDelReyBackend.Models;
 
-public partial class Usuario
+public partial class Usuario: BaseEntity
 {
-    public int IdUsuario { get; set; }
-
     public int IdSucursal { get; set; }
 
     public string Nombres { get; set; } = null!;
@@ -25,14 +23,7 @@ public partial class Usuario
 
     public string? Foto { get; set; }
 
-    public bool? Estado { get; set; }
-
-    public DateTime? FechaRegistro { get; set; }
-
-    public DateTime? FechaModificacion { get; set; }
-
-    public DateTime? FechaEliminacion { get; set; }
-
+    
     public virtual ICollection<Caja> CajaIdUsuarioAperturaNavigations { get; set; } = new List<Caja>();
 
     public virtual ICollection<Caja> CajaIdUsuarioCierreNavigations { get; set; } = new List<Caja>();

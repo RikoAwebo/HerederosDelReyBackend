@@ -1,4 +1,7 @@
-﻿namespace HerederosDelReyBackend.DTOs
+﻿using HerederosDelReyBackend.DTOs.DTO;
+using HerederosDelReyBackend.DTOs.DTO_CREATE;
+
+namespace HerederosDelReyBackend.DTOs
 {
     public class CompraDetalleDto
     {

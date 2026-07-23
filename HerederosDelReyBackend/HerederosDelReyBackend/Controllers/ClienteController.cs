@@ -1,4 +1,6 @@
 ﻿using HerederosDelReyBackend.DTOs;
+using HerederosDelReyBackend.DTOs.DTO_CREATE;
+using HerederosDelReyBackend.DTOs.DTO_UPDATE;
 using HerederosDelReyBackend.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

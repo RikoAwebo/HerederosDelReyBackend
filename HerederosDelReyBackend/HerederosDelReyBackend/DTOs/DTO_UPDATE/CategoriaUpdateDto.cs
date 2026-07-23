@@ -1,6 +1,6 @@
-﻿namespace HerederosDelReyBackend.DTOs
+﻿namespace HerederosDelReyBackend.DTOs.DTO_UPDATE
 {
-    public class CategoriaCreateDto
+    public class CategoriaUpdateDto
     {
         public string? Nombre { get; set; }
 

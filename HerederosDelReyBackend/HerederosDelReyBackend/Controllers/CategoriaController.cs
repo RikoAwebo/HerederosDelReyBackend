@@ -1,4 +1,6 @@
 ﻿using HerederosDelReyBackend.DTOs;
+using HerederosDelReyBackend.DTOs.DTO;
+using HerederosDelReyBackend.DTOs.DTO_UPDATE;
 using HerederosDelReyBackend.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 
 namespace HerederosDelReyBackend.Models;
 
-public partial class Gasto
+public partial class Gasto: BaseEntity
 {
-    public int IdGasto { get; set; }
-
+    
     public int IdCaja { get; set; }
 
     public int IdUsuario { get; set; }
@@ -18,14 +17,6 @@ public partial class Gasto
     public decimal Monto { get; set; }
 
     public string? Observacion { get; set; }
-
-    public bool Estado { get; set; }
-
-    public DateTime FechaRegistro { get; set; }
-
-    public DateTime? FechaModificacion { get; set; }
-
-    public DateTime? FechaEliminacion { get; set; }
 
     public virtual Caja IdCajaNavigation { get; set; } = null!;
 

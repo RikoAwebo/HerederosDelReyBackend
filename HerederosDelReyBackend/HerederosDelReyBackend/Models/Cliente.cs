@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace HerederosDelReyBackend.Models;
 
-public partial class Cliente
+public partial class Cliente : BaseEntity
 {
-    public int IdCliente { get; set; }
 
     public string Nombres { get; set; } = null!;
 
@@ -22,14 +21,6 @@ public partial class Cliente
     public DateOnly? FechaNacimiento { get; set; }
 
     public string? Observacion { get; set; }
-
-    public bool? Estado { get; set; }
-
-    public DateTime? FechaRegistro { get; set; }
-
-    public DateTime? FechaModificacion { get; set; }
-
-    public DateTime? FechaEliminacion { get; set; }
 
     public virtual ICollection<Venta> Venta { get; set; } = new List<Venta>();
 }

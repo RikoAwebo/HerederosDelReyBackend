@@ -3,10 +3,9 @@ using System.Collections.Generic;
 
 namespace HerederosDelReyBackend.Models;
 
-public partial class Sucursale
+public partial class Sucursale: BaseEntity
 {
-    public int IdSucursal { get; set; }
-
+    
     public string Nombre { get; set; } = null!;
 
     public string? Direccion { get; set; }
@@ -15,14 +14,7 @@ public partial class Sucursale
 
     public string? Correo { get; set; }
 
-    public bool Estado { get; set; }
-
-    public DateTime FechaRegistro { get; set; }
-
-    public DateTime? FechaModificacion { get; set; }
-
-    public DateTime? FechaEliminacion { get; set; }
-
+   
     public virtual ICollection<Caja> Cajas { get; set; } = new List<Caja>();
 
     public virtual ICollection<Compra> Compras { get; set; } = new List<Compra>();

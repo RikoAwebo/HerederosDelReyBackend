@@ -1,4 +1,4 @@
-﻿namespace HerederosDelReyBackend.DTOs
+﻿namespace HerederosDelReyBackend.DTOs.DTO
 {
     public class CategoriaDto
     {

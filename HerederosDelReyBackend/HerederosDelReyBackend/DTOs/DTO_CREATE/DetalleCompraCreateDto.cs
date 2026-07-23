@@ -1,8 +1,7 @@
-﻿namespace HerederosDelReyBackend.DTOs
+﻿namespace HerederosDelReyBackend.DTOs.DTO_CREATE
 {
-    public class DetalleCompraDto
+    public class DetalleCompraCreateDto
     {
-        public int Id { get; set; }
         public int Cantidad { get; set; }
 
         public decimal Precio { get; set; }
