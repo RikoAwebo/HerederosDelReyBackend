@@ -8,5 +8,8 @@ namespace HerederosDelReyBackend.Interfaces
     {
         Task<PagedList<Lote>> GetAllAsync(PostQueryFilter filter);
 
+
+
+
     }
 }
