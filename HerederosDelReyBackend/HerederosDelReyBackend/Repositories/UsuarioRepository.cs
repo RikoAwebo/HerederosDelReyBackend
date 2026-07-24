@@ -18,7 +18,7 @@ namespace HerederosDelReyBackend.Repositories
         {
             return await _context.Usuarios
                 .AsNoTracking()
-                .FirstOrDefaultAsync(x => x.Email == email && x.Borrado == false);
+                .FirstOrDefaultAsync(x => x.Correo == email && x.Estado == false);
         }
 
 
@@ -31,8 +31,8 @@ namespace HerederosDelReyBackend.Repositories
                 var buscar = filter.Buscar.ToLower();
 
                 query = query.Where(x =>
-                    x.NombreUsuario.ToLower().Contains(buscar) ||
-                    x.Email.ToLower().Contains(buscar));
+                    x.Usuario1.ToLower().Contains(buscar) ||
+                    x.Correo.ToLower().Contains(buscar));
          
             }
 

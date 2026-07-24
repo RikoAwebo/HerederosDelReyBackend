@@ -20,8 +20,7 @@ namespace HerederosDelReyBackend.Repositories
                 var buscar = filter.Buscar.ToLower();
 
                 query = query.Where(x =>
-                    x.PrecioUnitario.ToString().ToLower().Contains(buscar) ||
-                    x.VentaId.ToString().ToLower().Contains(buscar));
+                    x.IdVenta.ToString().ToLower().Contains(buscar));
 
 
             }
@@ -33,7 +32,7 @@ namespace HerederosDelReyBackend.Repositories
         {
             var query = GetAllAsQueryable();
 
-            query = query.Where(x => x.FechaCreacion.Date >= fechaInicio.Date && x.FechaCreacion.Date <= fechaFinal.Date && x.Borrado != true).Include(x=>x.Producto);
+            query = query.Where(x => x.FechaRegistro.Date >= fechaInicio.Date && x.FechaRegistro.Date <= fechaFinal.Date && x.Estado != true).Include(x=>x.IdProductoNavigation);
 
             return await query.ToListAsync();
 

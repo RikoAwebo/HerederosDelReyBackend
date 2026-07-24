@@ -4,19 +4,31 @@
     {
         public int Id { get; set; }
 
-        public DateTime? Fecha { get; set; }
+        public bool Acredito { get; set; }
 
-        public decimal? Total { get; set; }
+        public decimal MontoPagado { get; set; }
 
-        public string? MetodoPago { get; set; }
+        public decimal SaldoPendiente { get; set; }
 
-        public string? Observaciones { get; set; }
+        public DateOnly? FechaLimitePago { get; set; }
 
-        public int? ClienteId { get; set; }
+        public string TipoDocumento { get; set; } = null!;
 
-        public int? UsuarioId { get; set; }
+        public string? NumeroDocumento { get; set; }
 
-        public string? ClienteNombre { get; set; }
-        public string? UsuarioNombre { get; set; }
+        public DateTime FechaVenta { get; set; }
+
+        public decimal SubTotal { get; set; }
+
+        public decimal Descuento { get; set; }
+
+        public decimal Impuesto { get; set; }
+
+        public decimal Total { get; set; }
+
+        public string? Observacion { get; set; }
+
+        public string EstadoVenta { get; set; } = null!;
+
     }
 }

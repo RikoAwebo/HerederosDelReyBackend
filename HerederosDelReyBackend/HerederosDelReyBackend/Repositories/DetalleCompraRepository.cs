@@ -21,7 +21,7 @@ namespace HerederosDelReyBackend.Repositories
 
                 query = query.Where(x =>
                     x.Cantidad.ToString().ToLower().Contains(buscar) ||
-                    x.CompraId.ToString().ToLower().Contains(buscar));
+                    x.IdCompra.ToString().ToLower().Contains(buscar));
 
 
             }

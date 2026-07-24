@@ -15,8 +15,8 @@ namespace HerederosDelReyBackend.Repositories
         public async Task<PagedList<Compra>> GetAllAsync(PostQueryFilter filter)
         {
             var query = GetAllAsQueryable()
-                .Include(x => x.Proveedor)
-                .Include(x => x.Usuario)
+                .Include(x => x.EstadoCompra)
+                .Include(x => x.FechaCompra)
                 .Include(x => x.DetalleCompras) // 🔥 IMPORTANTE
                 .AsQueryable();
 
@@ -25,8 +25,8 @@ namespace HerederosDelReyBackend.Repositories
                 var buscar = filter.Buscar.ToLower();
 
                 query = query.Where(x =>
-                    (x.Proveedor != null && x.Proveedor.Nombre.ToLower().Contains(buscar)) ||
-                    (x.Usuario != null && x.Usuario.NombreUsuario.ToLower().Contains(buscar))
+                    (x.EstadoCompra != null && x.EstadoCompra.ToLower().Contains(buscar)) ||
+                    (x.FechaCompra.ToString().Contains(buscar))
                 );
             }
 

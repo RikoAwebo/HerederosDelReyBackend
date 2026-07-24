@@ -15,8 +15,8 @@ namespace HerederosDelReyBackend.Repositories
         {
 
             var query = GetAllAsQueryable()
-            .Include(x => x.Marca)
-            .Include(x => x.Categoria)
+            .Include(x => x.IdMarcaNavigation)
+            .Include(x => x.IdCategoriaNavigation)
             .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filter.Buscar))
@@ -25,8 +25,8 @@ namespace HerederosDelReyBackend.Repositories
 
                 query = query.Where(x =>
                     x.Nombre.ToLower().Contains(buscar)
-                    || x.Marca.Nombre.ToLower().Contains(buscar)
-                    || x.Categoria.Nombre.ToLower().Contains(buscar)
+                    || x.IdCategoriaNavigation.Nombre.ToLower().Contains(buscar)
+                    || x.IdCategoriaNavigation.Nombre.ToLower().Contains(buscar)
                 );
             }
 

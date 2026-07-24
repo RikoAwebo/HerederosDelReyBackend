@@ -22,6 +22,7 @@ namespace HerederosDelReyBackend.Repositories
 
                 query = query.Where(x =>
                     x.Nombre.ToLower().Contains(buscar));
+
             }
 
             return await PagedList<Categoria>.CreateAsync(query, filter.PageNumber, filter.PageSize);

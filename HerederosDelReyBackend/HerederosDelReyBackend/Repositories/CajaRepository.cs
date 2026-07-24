@@ -14,22 +14,22 @@ namespace HerederosDelReyBackend.Repositories
 
         }
 
-        //public async Task<PagedList<Caja>> GetAllAsync(PostQueryFilter filter)
-        //{
-        //    var query = GetAllAsQueryable()
-        //          .Include(x => x.Usuario)
-        //          .AsQueryable();
+        public async Task<PagedList<Caja>> GetAllAsync(PostQueryFilter filter)
+        {
+            var query = GetAllAsQueryable()
+                  .Include(x => x.Id)
+                  .AsQueryable();
 
-        //    if (!string.IsNullOrWhiteSpace(filter.Buscar))
-        //    {
-        //        var buscar = filter.Buscar.ToLower();
-        //        query = query.Where(x =>
-        //            x.Estado.ToLower().Contains(buscar));
+            if (!string.IsNullOrWhiteSpace(filter.Buscar))
+            {
+                var buscar = filter.Buscar.ToLower();
+                query = query.Where(x =>
+                    x.FechaApertura.ToString().Contains(buscar));
 
-        //    }
+            }
 
-        //    return await PagedList<Caja>.CreateAsync(query, filter.PageNumber, filter.PageSize);
-        //}
+            return await PagedList<Caja>.CreateAsync(query, filter.PageNumber, filter.PageSize);
+        }
 
     }
 }

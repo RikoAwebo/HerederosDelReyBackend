@@ -21,7 +21,7 @@ namespace HerederosDelReyBackend.Repositories
         {
             return await _entities
                 .AsNoTracking()
-                .Where(x => x.Borrado == false)
+                .Where(x => x.Estado == false)
                 .OrderByDescending(x => x.Id)
                 .ToListAsync();
         }
@@ -29,13 +29,13 @@ namespace HerederosDelReyBackend.Repositories
         public async Task<T?> GetByIdAsync(int id)
         {
             return await _entities
-                .FirstOrDefaultAsync(x => x.Id == id && x.Borrado == false);
+                .FirstOrDefaultAsync(x => x.Id == id && x.Estado == false);
         }
 
         public async Task AddAsync(T entity)
         {
-            entity.FechaCreacion = DateTime.Now;
-            entity.Borrado = false;
+            entity.FechaRegistro = DateTime.Now;
+            entity.Estado = false;
 
             await _entities.AddAsync(entity);
         }
@@ -47,12 +47,12 @@ namespace HerederosDelReyBackend.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var entity = await _entities.FirstOrDefaultAsync(x => x.Id == id && x.Borrado ==
+            var entity = await _entities.FirstOrDefaultAsync(x => x.Id == id && x.Estado ==
 false);
 
             if (entity != null)
             {
-                entity.Borrado = true;
+                entity.Estado = true;
                 _entities.Update(entity);
             }
 
@@ -61,7 +61,7 @@ false);
         {
             return _entities
                 .AsNoTracking()
-                .Where(x => x.Borrado == false)
+                .Where(x => x.Estado == false)
                 .OrderByDescending(x => x.Id)
                 .AsQueryable();
         }

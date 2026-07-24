@@ -4,8 +4,8 @@ using HerederosDelReyBackend.Models;
 
 namespace HerederosDelReyBackend.Interfaces
 {
-    public interface IProveedorRepository : IGenericRepository<Proveedore>
+    public interface ILoteRepository:IGenericRepository<Lote>
     {
-                        Task<PagedList<Proveedore>> GetAllAsync(PostQueryFilter filter);
+        Task<PagedList<Lote>> GetAllAsync(PostQueryFilter filter);
     }
 }

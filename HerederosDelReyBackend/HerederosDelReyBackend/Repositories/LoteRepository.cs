@@ -5,13 +5,12 @@ using HerederosDelReyBackend.Models;
 
 namespace HerederosDelReyBackend.Repositories
 {
-    public class MarcaRepository : GenericRepository<Marca>, IMarcaRepository
+    public class LoteRepository: GenericRepository<Lote>, ILoteRepository
     {
-        public MarcaRepository(HerederosDelReyContext context) : base(context)
+        public LoteRepository(HerederosDelReyContext context) : base(context)
         {
-
         }
-        public async Task<PagedList<Marca>> GetAllAsync(PostQueryFilter filter)
+        public async Task<PagedList<Lote>> GetAllAsync(PostQueryFilter filter)
         {
             var query = GetAllAsQueryable();
 
@@ -20,12 +19,13 @@ namespace HerederosDelReyBackend.Repositories
                 var buscar = filter.Buscar.ToLower();
 
                 query = query.Where(x =>
-                    x.Nombre.ToLower().Contains(buscar));
+                    x.Id.ToString().Contains(buscar));
+
+
             }
 
-            return await PagedList<Marca>.CreateAsync(query, filter.PageNumber, filter.PageSize);
 
+            return await PagedList<Lote>.CreateAsync(query, filter.PageNumber, filter.PageSize);
         }
-
     }
 }

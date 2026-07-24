@@ -3,23 +3,33 @@
     public class ProductoDto
     {
         public int Id { get; set; }
-        public string? Nombre { get; set; }
+        public int IdCategoria { get; set; }
 
-        public int? Stock { get; set; }
+        public int? IdMarca { get; set; }
 
-        public int? StockMinimo { get; set; }
+        public string Codigo { get; set; } = null!;
 
-        public decimal? PrecioCompra { get; set; }
+        public string? CodigoBarras { get; set; }
 
-        public decimal? PrecioVenta { get; set; }
+        public string Nombre { get; set; } = null!;
 
-        public DateOnly? FechaCaducidad { get; set; }
+        public string? NombreGenerico { get; set; }
 
-        public int? CategoriaId { get; set; }
+        public string? Descripcion { get; set; }
 
-        public int? MarcaId { get; set; }
+        public decimal PrecioCompra { get; set; }
 
-        public string? NombreMarca { get; set; }
-        public string? NombreCategoria { get; set; }
+        public decimal PrecioVenta { get; set; }
+
+        public decimal? Peso { get; set; }
+
+        public bool ControlaInventario { get; set; }
+
+        public bool ManejaLotes { get; set; }
+
+        public bool TieneVencimiento { get; set; }
+
+        public bool PermiteVenta { get; set; }
     }
+    
 }

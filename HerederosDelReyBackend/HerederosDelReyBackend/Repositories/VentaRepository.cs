@@ -14,15 +14,15 @@ namespace HerederosDelReyBackend.Repositories
         }
         public async Task<PagedList<Venta>> GetAllAsync(PostQueryFilter filter)
         {
-            var query = GetAllAsQueryable().Include(v => v.Cliente).Include(v => v.Usuario).AsQueryable();
+            var query = GetAllAsQueryable().Include(v => v.IdClienteNavigation).Include(v => v.IdUsuarioNavigation).AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filter.Buscar))
             {
                 var buscar = filter.Buscar.ToLower();
 
                 query = query.Where(x =>
-                    x.Cliente.Nombre.ToLower().Contains(buscar) ||
-                    x.Usuario.NombreUsuario.ToLower().Contains(buscar));
+                    x.IdClienteNavigation.Nombres.ToLower().Contains(buscar) ||
+                    x.IdUsuarioNavigation.Usuario1.ToLower().Contains(buscar));
 
 
             }

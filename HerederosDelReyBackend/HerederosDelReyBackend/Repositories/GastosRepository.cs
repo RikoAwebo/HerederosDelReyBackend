@@ -20,7 +20,7 @@ namespace HerederosDelReyBackend.Repositories
                 var buscar = filter.Buscar.ToLower();
 
                 query = query.Where(x =>
-                    x.TipoGasto.ToLower().Contains(buscar));
+                    x.FechaRegistro.ToString().Contains(buscar));
             }
 
             return await PagedList<Gasto>.CreateAsync(query, filter.PageNumber, filter.PageSize);
