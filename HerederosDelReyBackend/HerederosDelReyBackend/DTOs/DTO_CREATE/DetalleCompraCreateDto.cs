@@ -2,16 +2,21 @@
 {
     public class DetalleCompraCreateDto
     {
-        public int Cantidad { get; set; }
+       public int Id { get; set; }
+        public int IdCompra { get; set; }
 
-        public decimal Precio { get; set; }
+        public int IdProducto { get; set; }
 
-        public decimal? Subtotal { get; set; }
+        public int? IdLote { get; set; }
 
+        public decimal Cantidad { get; set; }
 
+        public decimal PrecioCompra { get; set; }
 
-        public int CompraId { get; set; }
+        public decimal Descuento { get; set; }
 
-        public int ProductoId { get; set; }
+        public decimal Impuesto { get; set; }
+
+        public decimal SubTotal { get; set; }
     }
 }

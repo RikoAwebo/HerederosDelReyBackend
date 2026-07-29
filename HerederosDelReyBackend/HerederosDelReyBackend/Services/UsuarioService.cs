@@ -45,7 +45,7 @@ namespace HerederosDelReyBackend.Services
 
             var usuario = _mapper.Map<Usuario>(dto);
 
-            usuario.Clave = _passwordHasher.HashPassword(dto.Clave);
+            usuario.PasswordHash = _passwordHasher.HashPassword(dto.Clave);
 
             await _unitOfWork.Usuarios.AddAsync(usuario);
             await _unitOfWork.SaveChangesAsync();
@@ -55,20 +55,20 @@ namespace HerederosDelReyBackend.Services
 
         public async Task<bool> UpdateAsync(int id, UsuarioUpdateDto dto)
         {
-            if (id != dto.Id)
+            if (id != dto.IdSucursal)
                 return false;
 
             var usuario = await _unitOfWork.Usuarios.GetByIdAsync(id);
             if (usuario == null)
                 return false;
 
-            usuario.NombreUsuario = dto.NombreUsuario;
-            usuario.Email = dto.Email;
+            usuario.Usuario1 = dto.Usuario1;
+            usuario.Correo = dto.Correo;
             usuario.Rol = dto.Rol;
 
-            if (!string.IsNullOrWhiteSpace(dto.Clave))
+            if (!string.IsNullOrWhiteSpace(dto.PasswordHash))
             {
-                usuario.Clave = _passwordHasher.HashPassword(dto.Clave);
+                usuario.PasswordHash = _passwordHasher.HashPassword(dto.PasswordHash);
             }
 
             _unitOfWork.Usuarios.Update(usuario);

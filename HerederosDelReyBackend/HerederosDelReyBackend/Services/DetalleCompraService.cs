@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿ using AutoMapper;
 using HerederosDelReyBackend.Data;
 using HerederosDelReyBackend.DTOs;
 using HerederosDelReyBackend.DTOs.DTO;
@@ -67,11 +67,10 @@ namespace HerederosDelReyBackend.Services
 
             
             compra.Cantidad = dto.Cantidad;
-            compra.Precio = dto.Precio;
-            compra.Subtotal = dto.Subtotal;
-            compra.CompraId = dto.CompraId;
-            compra.ProductoId = dto.ProductoId;
-
+            compra.PrecioCompra = dto.PrecioCompra;
+            compra.Descuento = dto.Descuento;
+            compra.Impuesto = dto.Impuesto;
+            compra.SubTotal = dto.SubTotal;
 
             _unitOfWork.DetalleCompras.Update(compra);
             await _unitOfWork.SaveChangesAsync();

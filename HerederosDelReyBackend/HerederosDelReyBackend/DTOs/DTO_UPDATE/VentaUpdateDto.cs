@@ -2,16 +2,17 @@
 {
     public class VentaUpdateDto
     {
-        public DateTime? Fecha { get; set; }
+        public bool Acredito { get; set; }
 
-        public decimal? Total { get; set; }
+        public decimal MontoPagado { get; set; }
 
-        public string? MetodoPago { get; set; }
+        public decimal SaldoPendiente { get; set; }
 
-        public string? Observaciones { get; set; }
+        public DateOnly? FechaLimitePago { get; set; }
 
-        public int? ClienteId { get; set; }
+        
+        public string? Observacion { get; set; }
 
-        public int? UsuarioId { get; set; }
+        public string EstadoVenta { get; set; } = null!;
     }
 }

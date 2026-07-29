@@ -20,7 +20,7 @@ namespace HerederosDelReyBackend.Services
 
         public async Task<ProveedoresDto> AddAsync(ProveedoresCreateDto dto)
         {
-            var Objeto = _mapper.Map<Proveedor>(dto);
+            var Objeto = _mapper.Map<Proveedore>(dto);
 
             await _unitOfWork.Proveedores.AddAsync(Objeto);
             await _unitOfWork.SaveChangesAsync();
@@ -63,9 +63,7 @@ namespace HerederosDelReyBackend.Services
                 return false;
 
             proveedor.Nombre = dto.Nombre;
-            proveedor.Telefono = dto.Telefono;
-            proveedor.Email = dto.Email;
-            proveedor.Direccion = dto.Direccion;
+            
 
 
             _unitOfWork.Proveedores.Update(proveedor);

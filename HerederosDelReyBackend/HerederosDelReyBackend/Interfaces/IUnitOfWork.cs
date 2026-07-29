@@ -11,7 +11,8 @@
         IDetalleCompraRepository DetalleCompras { get; }
         ICajaRepository Caja { get; }
         IVentaRepository Ventas { get; }
-
+        IImagenesProductoRepository ImagenesProducto { get; }
+        IInventarioSucursalRepository InventarioSucursal { get; }
 
         IMarcaRepository Marca { get; }
 

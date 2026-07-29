@@ -26,7 +26,7 @@ namespace HerederosDelReyBackend.Services
             if (usuario == null)
                 return null;
 
-            var claveValida = _passwordHasher.VerifyPassword(dto.Clave, usuario.Clave);
+            var claveValida = _passwordHasher.VerifyPassword(dto.Clave, usuario.PasswordHash);
 
             if (!claveValida)
                 return null;

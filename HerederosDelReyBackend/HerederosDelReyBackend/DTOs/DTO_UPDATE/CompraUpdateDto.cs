@@ -2,14 +2,15 @@
 {
     public class CompraUpdateDto
     {
-        public DateTime? Fecha { get; set; }
+        
+        public string TipoDocumento { get; set; } = null!;
 
-        public decimal? Total { get; set; }
+        public string? NumeroDocumento { get; set; }
+        public decimal Descuento { get; set; }
+        public string? Observacion { get; set; }
 
-        public string? Descripcion { get; set; }
+        public string EstadoCompra { get; set; } = null!;
 
-        public int? ProveedorId { get; set; }
 
-        public int? UsuarioId { get; set; }
     }
 }

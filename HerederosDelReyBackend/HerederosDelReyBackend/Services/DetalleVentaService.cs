@@ -62,13 +62,10 @@ namespace HerederosDelReyBackend.Services
             if (venta == null)
                 return false;
 
-            venta.ProductoId = dto.ProductoId;
+            venta.PrecioVenta    = dto.PrecioVenta;
             venta.Cantidad = dto.Cantidad;
-            venta.PrecioUnitario = dto.PrecioUnitario;
-            venta.Subtotal = dto.Subtotal;
-            venta.VentaId = dto.VentaId;
-            venta.PrecioCompra = dto.PrecioCompra;
 
+            
             _unitOfWork.DetalleVentas.Update(venta);
             await _unitOfWork.SaveChangesAsync();
             return true;

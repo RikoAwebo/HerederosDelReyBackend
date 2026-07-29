@@ -62,13 +62,12 @@ namespace HerederosDelReyBackend.Services
             if (venta == null)
                 return false;
 
-            venta.Fecha = dto.Fecha;
-            venta.Total = dto.Total;
-            venta.MetodoPago = dto.MetodoPago;
-            venta.Observaciones = dto.Observaciones;
-            venta.ClienteId = dto.ClienteId;
-            venta.UsuarioId = dto.UsuarioId;
-
+            venta.Acredito = dto.Acredito;
+            venta.MontoPagado = dto.MontoPagado;
+            venta.SaldoPendiente = dto.SaldoPendiente;
+            venta.FechaLimitePago = dto.FechaLimitePago;
+            venta.Observacion = dto.Observacion;
+            venta.EstadoVenta = dto.EstadoVenta;    
 
             _unitOfWork.Ventas.Update(venta);
             await _unitOfWork.SaveChangesAsync();
@@ -80,18 +79,18 @@ namespace HerederosDelReyBackend.Services
 
             var objetoDto = objeto.Select(v => new VentaDto
             {
-                Id = v.Id,
-                Fecha = v.Fecha,
-                Total = v.Total,
-                ClienteId = v.ClienteId,
-                UsuarioId = v.UsuarioId,
+                //Id = v.Id,
+                //Fecha = v.Fecha,
+                //Total = v.Total,
+                //ClienteId = v.ClienteId,
+                //UsuarioId = v.UsuarioId,
 
-                UsuarioNombre = v.Usuario != null
-                    ? v.Usuario.NombreUsuario
-                    : "Sin usuario",
-                ClienteNombre = v.Cliente != null
-                    ? v.Cliente.Nombre
-                    : "Sin usuario"
+                //UsuarioNombre = v.Usuario != null
+                //    ? v.Usuario.NombreUsuario
+                //    : "Sin usuario",
+                //ClienteNombre = v.Cliente != null
+                //    ? v.Cliente.Nombre
+                //    : "Sin usuario"
 
 
             });
@@ -110,7 +109,7 @@ namespace HerederosDelReyBackend.Services
             // 1. CREAR VENTA
             // =========================
             var venta = _mapper.Map<Venta>(dto.Venta);
-            venta.Fecha = DateTime.Now;
+            venta.FechaVenta = DateTime.Now;
 
             await _unitOfWork.Ventas.AddAsync(venta);
             await _unitOfWork.SaveChangesAsync(); // genera ID
@@ -125,24 +124,24 @@ namespace HerederosDelReyBackend.Services
             {
                 var detalle = _mapper.Map<DetalleVenta>(detalleDto);
 
-                detalle.VentaId = venta.Id;
+                detalle.IdVenta = venta.Id;
 
                 // =========================
                 // 3. VALIDAR PRODUCTO
                 // =========================
-                if (detalle.ProductoId > 0)
-                {
-                    var producto = await _unitOfWork.Productos.GetByIdAsync(detalle.ProductoId.Value);
+                //if (detalle.IdProducto > 0)
+                //{
+                //    var producto = await _unitOfWork.Productos.GetByIdAsync(detalle.IdProducto);
 
-                    if (producto == null)
-                        throw new Exception("Producto no encontrado");
+                //    if (producto == null)
+                //        throw new Exception("Producto no encontrado");
 
-                    if (producto.Stock < detalle.Cantidad)
-                        throw new Exception($"Stock insuficiente para {producto.Nombre}");
+                //    if (producto.Stock < detalle.Cantidad)
+                //        throw new Exception($"Stock insuficiente para {producto.Nombre}");
 
-                    producto.Stock -= detalle.Cantidad;
-                    _unitOfWork.Productos.Update(producto);
-                }
+                //    producto.Stock -= detalle.Cantidad;
+                //    _unitOfWork.Productos.Update(producto);
+                //}
 
                 await _unitOfWork.DetalleVentas.AddAsync(detalle);
             }

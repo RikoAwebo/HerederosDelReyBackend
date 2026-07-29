@@ -2,10 +2,16 @@
 {
     public class GastosCreateDto
     {
-        public string? Descripcion { get; set; }
+        public int IdCaja { get; set; }
 
-        public double? Monto { get; set; }
+        public int IdUsuario { get; set; }
 
-        public string? TipoGasto { get; set; }
+        public string Concepto { get; set; } = null!;
+
+        public string? NumeroComprobante { get; set; }
+
+        public decimal Monto { get; set; }
+
+        public string? Observacion { get; set; }
     }
 }

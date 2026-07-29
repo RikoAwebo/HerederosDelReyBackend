@@ -62,12 +62,20 @@ namespace HerederosDelReyBackend.Services
             if (Objeto == null)
                 return false;
 
+           
+            Objeto.IdCategoria = dto.IdCategoria;
+            Objeto.IdMarca = dto.IdMarca;
             Objeto.Nombre = dto.Nombre;
-            Objeto.Stock = dto.Stock;
-            Objeto.StockMinimo = dto.StockMinimo;
-            Objeto.PrecioCompra = dto.PrecioCompra;
-            Objeto.PrecioVenta = dto.PrecioVenta;
-            Objeto.FechaCaducidad = dto.FechaCaducidad;
+            Objeto.NombreGenerico = dto.NombreGenerico;
+            Objeto.Descripcion = dto.Descripcion;
+            Objeto.PrecioCompra= dto.PrecioCompra;
+            Objeto.PrecioVenta= dto.PrecioVenta;
+            Objeto.Peso= dto.Peso;
+            Objeto.ControlaInventario= dto.ControlaInventario;
+            Objeto.ManejaLotes= dto.ManejaLotes;
+            Objeto.TieneVencimiento= dto.TieneVencimiento;
+            Objeto.PermiteVenta= dto.PermiteVenta;
+
 
 
             _unitOfWork.Productos.Update(Objeto);

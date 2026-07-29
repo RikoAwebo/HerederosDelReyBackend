@@ -23,8 +23,8 @@ namespace HerederosDelReyBackend.Services
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-                new Claim(ClaimTypes.Name, usuario.NombreUsuario),
-                new Claim(ClaimTypes.Email, usuario.Email),
+                new Claim(ClaimTypes.Name, usuario.Usuario1),
+                new Claim(ClaimTypes.Email, usuario.Correo),
                 new Claim(ClaimTypes.Role, usuario.Rol)
             };
 
@@ -49,8 +49,8 @@ namespace HerederosDelReyBackend.Services
             return new AuthResponseDto
             {
                 Token = tokenString,
-                NombreUsuario = usuario.NombreUsuario,
-                Email = usuario.Email,
+                NombreUsuario = usuario.Usuario1,
+                Email = usuario.Correo,
                 Rol = usuario.Rol,
                 Id = usuario.Id.ToString(),
                 Expiracion = expiration

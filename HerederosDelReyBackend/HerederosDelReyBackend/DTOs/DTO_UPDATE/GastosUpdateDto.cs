@@ -2,10 +2,12 @@
 {
     public class GastosUpdateDto
     {
-        public string? Descripcion { get; set; }
+        
+        
+        public string Concepto { get; set; } = null!;
 
-        public double? Monto { get; set; }
+        public decimal Monto { get; set; }
 
-        public string? TipoGasto { get; set; }
+        public string? Observacion { get; set; }
     }
 }

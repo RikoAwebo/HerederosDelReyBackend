@@ -64,11 +64,10 @@ namespace HerederosDelReyBackend.Services
             if (compra == null)
                 return false;
 
-            compra.Fecha = dto.Fecha;
-            compra.Total = dto.Total;
-            compra.Descripcion = dto.Descripcion;
-            compra.ProveedorId = dto.ProveedorId;
-            compra.UsuarioId = dto.UsuarioId;
+            compra.Observacion = dto.Observacion;
+            compra.EstadoCompra = dto.EstadoCompra; 
+            compra.NumeroDocumento = dto.NumeroDocumento;
+            compra.TipoDocumento = dto.TipoDocumento;
 
 
             _unitOfWork.Compra.Update(compra);
@@ -80,25 +79,25 @@ namespace HerederosDelReyBackend.Services
         {
             var objeto = await _unitOfWork.Compra.GetAllAsync(filter);
 
-            var objetoDto = objeto.Select(c => new CompraDto
-            {
-                Id = c.Id,
-                Fecha = c.Fecha,
-                Total = c.Total,
-                Descripcion = c.Descripcion,
+            var objetoDto = objeto.Select(c => new CompraDto { });
+            //{
+            //    Id = c.Id,
+            //    FechaCompra = c.FechaCompra,
+            //    Total = c.Total,
+            //    Observacion = c.Observacion,
 
-                ProveedorId = c.ProveedorId,
-                UsuarioId = c.UsuarioId,
+            //    IdProveedor = c.IdProveedor,
+            //    IdUsuario = c.IdUsuario,
 
-                // 👇 Llaves foráneas resueltas manualmente
-                NombreProveedor = c.Proveedor != null
-                    ? c.Proveedor.Nombre
-                    : "Sin proveedor",
+            //    // 👇 Llaves foráneas resueltas manualmente
+            //    naviga = c.Proveedore != null
+            //        ? c.Proveedore.Nombre
+            //        : "Sin proveedor",
 
-                NombreUsuario = c.Usuario != null
-                    ? c.Usuario.NombreUsuario
-                    : "Sin usuario"
-            });
+            //    NombreUsuario = c.Usuario1 != null
+            //        ? c.Usuario1.NombreUsuario
+            //        : "Sin usuario"
+            //});
 
             return new ApiResponse<IEnumerable<CompraDto>>(objetoDto, objeto.MetaData);
         }
@@ -111,7 +110,7 @@ namespace HerederosDelReyBackend.Services
             // 1. CREAR COMPRA
             // =========================
             var compra = _mapper.Map<Compra>(dto.Compra);
-            compra.Fecha = DateTime.Now;
+            compra.FechaCompra = DateTime.Now;
 
             await _unitOfWork.Compra.AddAsync(compra);
             await _unitOfWork.SaveChangesAsync(); // genera ID
@@ -126,26 +125,24 @@ namespace HerederosDelReyBackend.Services
             {
                 var detalle = _mapper.Map<DetalleCompra>(detalleDto);
 
-                detalle.CompraId = compra.Id;
+                detalle.IdCompra = compra.Id;
 
                 // =========================
                 // 3. VALIDAR PRODUCTO
                 // =========================
-                if (detalle.ProductoId > 0)
-                {
+                //if (detalle.IdProducto > 0)
+                //{
 
-                    var producto = await _unitOfWork.Productos.GetByIdAsync(detalle.ProductoId);
+                //    var inventario = await _unitOfWork.InventarioSucursal
+                //    .GetByProductoSucursalAsync(detalle.IdProducto, compra.IdSucursal);
 
-                    if (producto == null)
-                        throw new Exception("Producto no encontrado");
+                //    if (inventario == null)
+                //        throw new Exception("No existe inventario para este producto en esta sucursal.");
 
-                    // =========================
-                    // AUMENTAR STOCK
-                    // =========================
-                    producto.Stock += detalle.Cantidad;
+                //    inventario.StockActual += detalle.Cantidad;
 
-                    _unitOfWork.Productos.Update(producto);
-                }
+                //    _unitOfWork.InventarioSucursal.Update(inventario);
+                //}
 
                 await _unitOfWork.DetalleCompras.AddAsync(detalle);
             }

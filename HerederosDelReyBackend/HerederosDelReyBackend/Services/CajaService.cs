@@ -65,14 +65,12 @@ namespace HerederosDelReyBackend.Services
             if (Objeto == null)
                 return false;
 
-            Objeto.MontoInicial = dto.MontoInicial;
+            Objeto.MontoInicial = (decimal)dto.MontoInicial;
             Objeto.MontoFinal = dto.MontoFinal;
-            Objeto.FechaApertura = dto.FechaApertura;
-            Objeto.FechaCierre = dto.FechaCierre;
-            Objeto.Gastos = dto.Gastos;
-            Objeto.Estado = dto.Estado;
-            Objeto.UsuarioId = dto.UsuarioId;
-
+            Objeto.FechaApertura = (DateTime)dto.FechaApertura;
+            Objeto.FechaCierre = (DateTime)dto.FechaCierre;
+            Objeto.EstadoCaja = dto.EstadoCaja;
+            
 
             _unitOfWork.Caja.Update(Objeto);
             await _unitOfWork.SaveChangesAsync();
@@ -96,17 +94,24 @@ namespace HerederosDelReyBackend.Services
             if (caja == null)
                 return false;
 
-            if (caja.Estado == "CERRADA")
+            if (caja.EstadoCaja == "CERRADA")
                 return false;
 
-            var ventas = _unitOfWork.Ventas.GetAllAsQueryable()
-                .Where(x => x.FechaCreacion >= caja.FechaApertura);
+            // Total de ventas desde la apertura de la caja
+            var totalVentas = _unitOfWork.Ventas
+                .GetAllAsQueryable()
+                .Where(v => v.FechaRegistro >= caja.FechaApertura)
+                .Sum(v => (decimal?)v.Total) ?? 0;
 
-            var totalVentas = ventas.Sum(x => (decimal?)x.Total) ?? 0;
+            // Total de gastos de la caja
+            var totalGastos = _unitOfWork.Gastos
+                .GetAllAsQueryable()
+                .Where(g => g.IdCaja == id)
+                .Sum(g => (decimal?)g.Monto) ?? 0;
 
-            caja.MontoFinal = (caja.MontoInicial ?? 0) + totalVentas - (caja.Gastos ?? 0);
+            caja.MontoFinal = caja.MontoInicial + totalVentas - totalGastos;
             caja.FechaCierre = DateTime.UtcNow;
-            caja.Estado = "CERRADA";
+            caja.EstadoCaja = "CERRADA";
 
             _unitOfWork.Caja.Update(caja);
             await _unitOfWork.SaveChangesAsync();

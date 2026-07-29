@@ -4,25 +4,22 @@ namespace HerederosDelReyBackend.DTOs
 {
     public class UsuarioUpdateDto
     {
-        [Required]
-        public int Id { get; set; }
+        public int IdSucursal { get; set; }
 
-        [Required]
-        [MaxLength(100)]
-        public string NombreUsuario { get; set; } = string.Empty;
+        public string Nombres { get; set; } = null!;
 
-        [Required]
-        [MaxLength(150)]
-        [EmailAddress]
+        public string? Apellidos { get; set; }
 
-        public string Email { get; set; } = string.Empty;
+        public string? Rol { get; set; }
 
-        [Required]
-        [MaxLength(255)]
-        public string Clave { get; set; } = string.Empty;
+        public string Usuario1 { get; set; } = null!;
 
-        [Required]
-        [MaxLength(50)]
-        public string Rol { get; set; } = string.Empty;
+        public string PasswordHash { get; set; } = null!;
+
+        public string? Telefono { get; set; }
+
+        public string? Correo { get; set; }
+
+        public string? Foto { get; set; }
     }
 }

@@ -12,7 +12,7 @@
 
         public decimal? Gastos { get; set; }
 
-        public string? Estado { get; set; }
+        public string? EstadoCaja { get; set; }
 
         public int? UsuarioId { get; set; }
     }

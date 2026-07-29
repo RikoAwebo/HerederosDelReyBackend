@@ -66,9 +66,10 @@ namespace HerederosDelReyBackend.Services
             if (Objeto == null)
                 return false;
 
-            Objeto.TipoGasto = dto.TipoGasto;
-            Objeto.Descripcion = dto.Descripcion;
+            Objeto.Concepto = dto.Concepto;
             Objeto.Monto = dto.Monto;
+            Objeto.Observacion = dto.Observacion;
+
 
 
             _unitOfWork.Gastos.Update(Objeto);

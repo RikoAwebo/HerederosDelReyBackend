@@ -43,6 +43,12 @@ namespace HerederosDelReyBackend.Repositories
 
         public IDetalleCompraRepository DetalleCompras
             => _detallecompraRepository ??= new DetalleCompraRepository(_context);
+        
+        private IImagenesProductoRepository? _imagenesProductoRepository;
+        private IInventarioSucursalRepository? _inventarioSucursalRepository;
+
+        public IInventarioSucursalRepository InventarioSucursal
+            => _inventarioSucursalRepository ??= new InventarioSucursalRepository(_context);
 
         public ICajaRepository Caja
             => _cajaRepository ??= new CajaRepository(_context);

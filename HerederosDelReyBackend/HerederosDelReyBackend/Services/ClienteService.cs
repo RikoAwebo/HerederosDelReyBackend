@@ -64,11 +64,14 @@ public class ClienteService : IClienteService
         if (Cliente == null)
             return false;
 
-        Cliente.Nombre = dto.Nombre;
+        Cliente.Nombres = dto.Nombres;
+        Cliente.Apellidos = dto.Apellidos;
+        Cliente.NitCi = dto.NitCi;
         Cliente.Telefono = dto.Telefono;
-        Cliente.Email = dto.Email;
+        Cliente.Correo = dto.Correo;
         Cliente.Direccion = dto.Direccion;
-
+        Cliente.FechaNacimiento = dto.FechaNacimiento;
+        Cliente.Observacion = dto.Observacion;  
 
         _unitOfWork.Clientes.Update(Cliente);
         await _unitOfWork.SaveChangesAsync();
