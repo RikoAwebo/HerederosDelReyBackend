@@ -21,6 +21,7 @@
         IProductoRepository Productos { get; }
 
         IDetalleVentaRepository DetalleVentas { get; }
+        ISucursaleRepository Sucursale { get; }
 
         Task<int> SaveChangesAsync();
     }

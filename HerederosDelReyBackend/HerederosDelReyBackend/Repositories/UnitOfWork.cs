@@ -19,7 +19,9 @@ namespace HerederosDelReyBackend.Repositories
         private IGastosRepository? _gastoRepository;
         private IProductoRepository? _productoRepository;
         private IDetalleVentaRepository? _detalleVentaRepository;
-
+        private IImagenesProductoRepository? _imagenesProductoRepository;
+        private IInventarioSucursalRepository? _inventarioSucursalRepository;
+        private ISucursaleRepository? _sucursaleRepository;
         private IReporteService? _reporteService;
       
 
@@ -44,11 +46,18 @@ namespace HerederosDelReyBackend.Repositories
         public IDetalleCompraRepository DetalleCompras
             => _detallecompraRepository ??= new DetalleCompraRepository(_context);
         
-        private IImagenesProductoRepository? _imagenesProductoRepository;
-        private IInventarioSucursalRepository? _inventarioSucursalRepository;
+
+
+        public IImagenesProductoRepository ImagenesProducto 
+            => _imagenesProductoRepository ??= new ImagenesProductoRepository(_context);
+
+
 
         public IInventarioSucursalRepository InventarioSucursal
             => _inventarioSucursalRepository ??= new InventarioSucursalRepository(_context);
+
+
+
 
         public ICajaRepository Caja
             => _cajaRepository ??= new CajaRepository(_context);
@@ -69,8 +78,8 @@ namespace HerederosDelReyBackend.Repositories
             => _detalleVentaRepository ??= new DetalleVentaRepository(_context);
 
 
-
-
+        public ISucursaleRepository Sucursale
+            => _sucursaleRepository ??= new SucursaleRepository(_context);
 
         public async Task<int> SaveChangesAsync()
         {
