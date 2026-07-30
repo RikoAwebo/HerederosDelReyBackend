@@ -109,6 +109,10 @@ builder.Services.AddScoped<IDetalleVentaService, DetalleVentaService>();
 builder.Services.AddScoped<IInventarioSucursalRepository, InventarioSucursalRepository>();
 builder.Services.AddScoped<IInventarioSucursalService, InventarioSucursalService>();
 
+builder.Services.AddScoped<ISucursaleRepository, SucursaleRepository>();
+builder.Services.AddScoped<ISucursalService, SucursaleService>();
+
+
 builder.Services.AddScoped<IReporteService, ReporteService>();
 
 // =========================

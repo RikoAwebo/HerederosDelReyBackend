@@ -9,7 +9,7 @@ using HerederosDelReyBackend.Models;
 
 namespace HerederosDelReyBackend.Services
 {
-    public class SucursaleService
+    public class SucursaleService : ISucursalService
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;

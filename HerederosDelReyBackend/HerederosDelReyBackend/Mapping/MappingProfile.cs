@@ -68,6 +68,16 @@ namespace HerederosDelReyBackend.Mapping
             CreateMap<ImagenesProducto, ImagenesProductoDto>().ReverseMap();
             CreateMap<ImagenesProductoCreateDto, ImagenesProducto>().ReverseMap();
             CreateMap<ImagenesProductoUpdateDto, ImagenesProducto>().ReverseMap();
+
+            CreateMap<Sucursale, SucursaleDto>().ReverseMap();
+            CreateMap<SucursaleCreateDto, Sucursale>().ReverseMap();
+            CreateMap<SucursaleUpdateDto, Sucursale>().ReverseMap();
+
+            CreateMap<InventarioSucursal, InventarioSucursalDto>().ReverseMap();
+            CreateMap<InventarioSucursalCreateDto, InventarioSucursal>().ReverseMap();
+            CreateMap<InventarioSucursalUpdateDto, InventarioSucursal>().ReverseMap();
+
+
         }
     }
 }
