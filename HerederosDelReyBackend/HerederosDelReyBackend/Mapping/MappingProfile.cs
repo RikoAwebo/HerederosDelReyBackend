@@ -21,7 +21,9 @@ namespace HerederosDelReyBackend.Mapping
             CreateMap<Usuario, UsuarioDto>().ReverseMap();
             CreateMap<UsuarioCreateDto, Usuario>().ReverseMap();
             CreateMap<UsuarioUpdateDto, Usuario>().ReverseMap();
+
             CreateMap<VentaDto, Venta>().ReverseMap();
+
             CreateMap<Cliente, ClienteDto>().ReverseMap();
             CreateMap<ClienteCreateDto, Cliente>().ReverseMap();
             CreateMap<ClienteUpdateDto, Cliente>().ReverseMap();
@@ -77,6 +79,10 @@ namespace HerederosDelReyBackend.Mapping
             CreateMap<InventarioSucursalCreateDto, InventarioSucursal>().ReverseMap();
             CreateMap<InventarioSucursalUpdateDto, InventarioSucursal>().ReverseMap();
 
+
+            CreateMap<Lote,  LoteDto>().ReverseMap();
+            CreateMap<LoteCreateDto,  Lote>().ReverseMap();
+            CreateMap<LoteUpdateDto, Lote>().ReverseMap();
 
         }
     }

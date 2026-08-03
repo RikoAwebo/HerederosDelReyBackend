@@ -23,6 +23,8 @@
         IDetalleVentaRepository DetalleVentas { get; }
         ISucursaleRepository Sucursale { get; }
 
+        ILoteRepository Lote { get; }
+
         Task<int> SaveChangesAsync();
     }
 }

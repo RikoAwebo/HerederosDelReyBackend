@@ -22,6 +22,9 @@ namespace HerederosDelReyBackend.Repositories
         private IImagenesProductoRepository? _imagenesProductoRepository;
         private IInventarioSucursalRepository? _inventarioSucursalRepository;
         private ISucursaleRepository? _sucursaleRepository;
+
+        private ILoteRepository? _loteRepository;
+
         private IReporteService? _reporteService;
       
 
@@ -80,6 +83,9 @@ namespace HerederosDelReyBackend.Repositories
 
         public ISucursaleRepository Sucursale
             => _sucursaleRepository ??= new SucursaleRepository(_context);
+
+        public ILoteRepository Lote
+            => _loteRepository ??= new LoteRepository(_context);
 
         public async Task<int> SaveChangesAsync()
         {
