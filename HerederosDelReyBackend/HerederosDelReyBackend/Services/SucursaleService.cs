@@ -78,7 +78,7 @@ namespace HerederosDelReyBackend.Services
 
         public async Task<ApiResponse<IEnumerable<SucursaleDto>>> GetAllAsync(PostQueryFilter filter)
         {
-            var sucursales   = await _unitOfWork.Categorias.GetAllAsync(filter);
+            var sucursales   = await _unitOfWork.Sucursale.GetAllAsync(filter);
             var sucursalesDto = _mapper.Map<IEnumerable<SucursaleDto>>(sucursales);
 
             return new ApiResponse<IEnumerable<SucursaleDto>>(sucursalesDto, sucursales.MetaData);

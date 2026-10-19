@@ -1,7 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using HerederosDelReyBackend.Models;
+﻿using HerederosDelReyBackend.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace HerederosDelReyBackend.Data;
 
@@ -52,7 +54,6 @@ public partial class HerederosDelReyContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=HDR3;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False;Command Timeout=30");
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Caja>(entity =>
@@ -408,22 +409,16 @@ public partial class HerederosDelReyContext : DbContext
             entity.HasKey(e => e.Id).HasName("PK__Ventas__3214EC076BECC2BE");
 
             entity.Property(e => e.Acredito).HasColumnName("ACredito");
-            entity.Property(e => e.Descuento).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.Estado).HasDefaultValue(true);
             entity.Property(e => e.EstadoVenta)
                 .HasMaxLength(20)
                 .HasDefaultValue("COMPLETADA");
             entity.Property(e => e.FechaRegistro).HasDefaultValueSql("(getdate())");
             entity.Property(e => e.FechaVenta).HasDefaultValueSql("(getdate())");
-            entity.Property(e => e.Impuesto).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.MontoPagado).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.NumeroDocumento).HasMaxLength(50);
             entity.Property(e => e.Observacion).HasMaxLength(500);
             entity.Property(e => e.SaldoPendiente).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.SubTotal).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.TipoDocumento)
-                .HasMaxLength(30)
-                .HasDefaultValue("RECIBO");
+
             entity.Property(e => e.Total).HasColumnType("decimal(18, 2)");
 
             entity.HasOne(d => d.IdClienteNavigation).WithMany(p => p.Venta)

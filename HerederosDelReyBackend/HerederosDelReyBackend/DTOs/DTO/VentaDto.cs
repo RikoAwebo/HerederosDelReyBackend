@@ -12,18 +12,10 @@
 
         public DateOnly? FechaLimitePago { get; set; }
 
-        public string TipoDocumento { get; set; } = null!;
-
-        public string? NumeroDocumento { get; set; }
-
+        
         public DateTime FechaVenta { get; set; }
 
-        public decimal SubTotal { get; set; }
-
-        public decimal Descuento { get; set; }
-
-        public decimal Impuesto { get; set; }
-
+        
         public decimal Total { get; set; }
 
         public string? Observacion { get; set; }

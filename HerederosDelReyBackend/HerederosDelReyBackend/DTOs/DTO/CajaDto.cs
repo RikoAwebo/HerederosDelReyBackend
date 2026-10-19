@@ -21,6 +21,11 @@
 
         public string? Observacion { get; set; }
 
+
+        public string NombreSucursal { get; set; }
+
+        public string NombreUsuario { get; set; }
+
     }
 }
 

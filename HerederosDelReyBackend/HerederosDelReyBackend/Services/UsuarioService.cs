@@ -39,7 +39,7 @@ namespace HerederosDelReyBackend.Services
 
         public async Task<UsuarioDto> AddAsync(UsuarioCreateDto dto)
         {
-            var existe = await _unitOfWork.Usuarios.GetByEmailAsync(dto.Email);
+            var existe = await _unitOfWork.Usuarios.GetByEmailAsync(dto.Correo);
             if (existe != null)
                 throw new Exception("Ya existe un usuario con ese email.");
 

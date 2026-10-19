@@ -16,16 +16,20 @@ namespace HerederosDelReyBackend.Repositories
         public async Task<PagedList<Sucursale>> GetAllAsync(PostQueryFilter filter)
         {
             var query = GetAllAsQueryable()
-                  .Include(x => x.Id)
-                  .AsQueryable();
+                .AsNoTracking();
 
             if (!string.IsNullOrWhiteSpace(filter.Buscar))
             {
-                var buscar = filter.Buscar.ToLower();
-                query = query.Where(x =>
-                    x.Nombre.Contains(buscar));
+                var buscar = filter.Buscar.Trim();
 
+                query = query.Where(x =>
+                    x.Nombre.Contains(buscar) ||
+                    (x.Telefono != null && x.Telefono.Contains(buscar)) ||
+                    (x.Direccion != null && x.Direccion.Contains(buscar)) ||
+                    (x.Correo != null && x.Correo.Contains(buscar)));
             }
+
+            query = query.OrderBy(x => x.Nombre);
 
             return await PagedList<Sucursale>.CreateAsync(query, filter.PageNumber, filter.PageSize);
         }

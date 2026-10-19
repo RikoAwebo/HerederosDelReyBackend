@@ -17,7 +17,8 @@ namespace HerederosDelReyBackend.Repositories
         public async Task<PagedList<Caja>> GetAllAsync(PostQueryFilter filter)
         {
             var query = GetAllAsQueryable()
-                  .Include(x => x.Id)
+                  .Include(c => c.IdSucursalNavigation)
+                  .Include(c => c.IdUsuarioAperturaNavigation)
                   .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filter.Buscar))
